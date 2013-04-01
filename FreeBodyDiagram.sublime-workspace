@@ -1,0 +1,633 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"dx",
+				"dXdYdZ"
+			],
+			[
+				"norm",
+				"norm"
+			],
+			[
+				"dX",
+				"dXdYdZ"
+			],
+			[
+				"is",
+				"isF_vector"
+			],
+			[
+				"task",
+				"task_hash"
+			],
+			[
+				"Arra",
+				"Array	Array.new(10) { |i| .. }"
+			],
+			[
+				"if",
+				"ife	if … else … end"
+			],
+			[
+				"add",
+				"addresources"
+			],
+			[
+				"arr",
+				"arrResources"
+			],
+			[
+				"descr",
+				"description"
+			],
+			[
+				"mod",
+				"mod	module .. end"
+			],
+			[
+				"de",
+				"def	def … end"
+			],
+			[
+				"controls",
+				"controls_subcontracting"
+			],
+			[
+				"main",
+				"main_basic"
+			],
+			[
+				"st",
+				"structure_design"
+			],
+			[
+				"stru",
+				"structure_loads_foundation_known"
+			],
+			[
+				"struct",
+				"structure_procurement"
+			],
+			[
+				"manu",
+				"manufacturing_task"
+			],
+			[
+				"structure",
+				"structure_main"
+			],
+			[
+				"foundation",
+				"foundation_basic"
+			],
+			[
+				"founda",
+				"foundation_basic"
+			],
+			[
+				"found",
+				"foundation_procurement"
+			],
+			[
+				"foundat",
+				"foundation_procurement"
+			],
+			[
+				"foundatio",
+				"foundation_manufacturer"
+			],
+			[
+				"margin",
+				"margin-left"
+			],
+			[
+				"structure_de",
+				"structure_design"
+			],
+			[
+				"e",
+				"external_task"
+			],
+			[
+				"tran",
+				"transport_task"
+			],
+			[
+				"man",
+				"manufacturing_task"
+			],
+			[
+				"src_",
+				"src_design"
+			],
+			[
+				"hom",
+				"hom_iluc"
+			],
+			[
+				"proc_f",
+				"proc_fabr_1"
+			],
+			[
+				"eroo",
+				"eroom_procurement"
+			],
+			[
+				"eroom",
+				"eroom_design_detailed"
+			],
+			[
+				"er",
+				"eroom_design"
+			],
+			[
+				"wsmu_str",
+				"wsmu_structure_manufacturing"
+			],
+			[
+				"str",
+				"structure_manufacturing"
+			],
+			[
+				"structure_m",
+				"structure_main"
+			],
+			[
+				"isle",
+				"isleaf"
+			],
+			[
+				"isleaf",
+				"isleaf_"
+			],
+			[
+				"now",
+				"nowtimespan"
+			],
+			[
+				"per",
+				"period"
+			],
+			[
+				"wsmu_el",
+				"WSMU_elut"
+			],
+			[
+				"wsm",
+				"wsmu_pm"
+			],
+			[
+				"elu",
+				"elut_detail_design"
+			],
+			[
+				"src",
+				"src_detailed_design"
+			],
+			[
+				"elut",
+				"elut_basic_design"
+			],
+			[
+				"tm_",
+				"tm_aframe_mods"
+			],
+			[
+				"pro",
+				"priority"
+			],
+			[
+				"structur",
+				"structure_foundation"
+			],
+			[
+				"wee",
+				"weeklymax"
+			],
+			[
+				"kenc_",
+				"kenc_ptl_tmrails_tasks"
+			],
+			[
+				"kenc_ptl_tmrails_tast",
+				"kenc_ptl_tmrails_tasks_extra"
+			],
+			[
+				"rail",
+				"rails_straight_parallel"
+			],
+			[
+				"cas",
+				"cast_grouting"
+			],
+			[
+				"fine",
+				"fine_adjustment_rail1"
+			],
+			[
+				"curing",
+				"curing_anchorbolts"
+			],
+			[
+				"ins",
+				"install_anchorbolts"
+			],
+			[
+				"lo",
+				"locating_holes"
+			],
+			[
+				"inst",
+				"install_bolts"
+			],
+			[
+				"clean",
+				"clean_holes"
+			],
+			[
+				"fina",
+				"final_check_hole_locations"
+			],
+			[
+				"dur",
+				"duration"
+			],
+			[
+				"rail1",
+				"rail1_holes_copy"
+			],
+			[
+				"rail2_",
+				"rail2_straighten_xy"
+			],
+			[
+				"ch",
+				"check_inventory"
+			],
+			[
+				"rail1_",
+				"rail1_straighten_xy"
+			],
+			[
+				"rail2",
+				"rail2_straighten_xy"
+			],
+			[
+				"load",
+				"load_elut"
+			],
+			[
+				"to_",
+				"to_horizontal_position"
+			],
+			[
+				"pi",
+				"PIVOTFRAME"
+			],
+			[
+				"co",
+				"COLLISION"
+			],
+			[
+				"h",
+				"horizontal"
+			],
+			[
+				"p",
+				"pivotframe"
+			],
+			[
+				"x",
+				"xpos"
+			],
+			[
+				"has",
+				"has_unloaded_pipe"
+			],
+			[
+				"d",
+				"dimensions"
+			],
+			[
+				"tes",
+				"TESTED_tube"
+			],
+			[
+				"ISO",
+				"ISO_3098_IIE"
+			],
+			[
+				"font",
+				"font-size"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "vector.rb",
+			"settings":
+			{
+				"buffer_size": 1985,
+				"line_ending": "Unix",
+				"name": "#this class describes the vector class"
+			}
+		},
+		{
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "example.rb",
+			"settings":
+			{
+				"buffer_size": 1373,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/User/latex.sublime-build",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"pl",
+				"Package Control: List Packages"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 139.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/basdebruijn/Programs/css3/3dtransform.html",
+		"/Users/basdebruijn/Planning/WSMU/bdb_report.tji",
+		"/Users/basdebruijn/Planning/WSMU/report.tji",
+		"/Users/basdebruijn/Planning/WSMU/WSMU-elut.tji",
+		"/Users/basdebruijn/Planning/WSMU/report-modules.tji",
+		"/Users/basdebruijn/Planning/WSMU/macros.tji",
+		"/Users/basdebruijn/Planning/WSMU/WSMU-export-bookings.tji",
+		"/Users/basdebruijn/Planning/WSMU/WSMU-bookings.tji",
+		"/Users/basdebruijn/Planning/WSMU/WSMU-hom.tji",
+		"/Users/basdebruijn/Planning/WSMU/WSMU-src.tji",
+		"/Users/basdebruijn/Planning/WSMU/WSMU-booking-1311.tji",
+		"/Users/basdebruijn/Planning/WSMU/WSMU-booking-1310.tji",
+		"/Users/basdebruijn/Planning/WSMU/project_report.tji",
+		"/Users/basdebruijn/Planning/WSMU/WSMU.tjp",
+		"/Users/basdebruijn/Planning/WSMU/WSMU-tm.tji",
+		"/Users/basdebruijn/Planning/WSMU/WSMU-resources.tji",
+		"/Users/basdebruijn/Planning/WSMU/report-externals.tji",
+		"/Users/basdebruijn/Planning/WSMU/WSMU-structure.tji",
+		"/Users/basdebruijn/Planning/WSMU/bdb_WSMU_status.html",
+		"/Users/basdebruijn/Planning/WSMU/kenc_report.tji",
+		"/Users/basdebruijn/Planning/WSMU/flags.tji",
+		"/Users/basdebruijn/Planning/WSMU/css/tjreport.css",
+		"/Users/basdebruijn/Planning/WSMU/WSMU.sublime-project",
+		"/Users/basdebruijn/Planning/WSMU/WSMU-booking-1310.tji.tji",
+		"/Users/basdebruijn/Planning/kenc-ptl-tmrails/uren.txt",
+		"/Users/basdebruijn/Planning/WSMU/WSMY-export-bookings.tji",
+		"/Users/basdebruijn/Planning/WSMU/kenc-ptl-tmrails-resources.tji",
+		"/Users/basdebruijn/Planning/WSMU/kenc-ptl-tmrail-booking-week-1309.tji",
+		"/Users/basdebruijn/Planning/WSMU/kenc-ptl-tmrails.tjp",
+		"/Users/basdebruijn/Planning/seared breast of pheasant",
+		"/Users/basdebruijn/Planning/kenc-ptl-tmrails/kenc-ptl-tmrails-resources.tji",
+		"/Users/basdebruijn/Planning/kenc-ptl-tmrails/report.tji",
+		"/Users/basdebruijn/Planning/kenc-ptl-tmrails/kenc-tmrail-export-bookings.tji",
+		"/Users/basdebruijn/Planning/kenc-ptl-tmrails/.GITIGNORE",
+		"/Users/basdebruijn/Planning/kenc-ptl-tmrails/kenc-ptl-tmrail.sublime-project",
+		"/Users/basdebruijn/Planning/kenc-ptl-tmrails/project_report.tji",
+		"/Users/basdebruijn/Planning/kenc-ptl-tmrails/kenc-ptl-tmrails.tjp",
+		"/Volumes/LUMINIZE/settings/file.txt",
+		"/Users/basdebruijn/Planning/WSMU/WSMU-proces.tjp",
+		"/Users/basdebruijn/Programs/freemind/bl bl bl.mm"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"global_debug",
+			"actuel",
+			"foundation_manufacturing",
+			"WSMU_trackinggantt_pathcriticalness",
+			"nk",
+			"dailymax",
+			"hom_engineering",
+			"hom_fat",
+			"30h",
+			"isleaf_",
+			"\"%",
+			"limits",
+			"3000",
+			"40d",
+			"kenc_ptl_tmrails",
+			"17",
+			"22",
+			"#	",
+			"bbn",
+			"luminize_",
+			"taskjuggler",
+			"E68B743A-CAE6-4B70-3B21-24E37A70A06A",
+			"basdebruijn.com"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"WSMU",
+			"bdb\nbdb\nbdb\nbdb"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "vector.rb",
+					"settings":
+					{
+						"buffer_size": 1985,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1902,
+								1902
+							]
+						],
+						"settings":
+						{
+							"auto_name": "#this class describes the vector class",
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 884.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "example.rb",
+					"settings":
+					{
+						"buffer_size": 1373,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								868,
+								868
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 112.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 241.0,
+	"status_bar_visible": true
+}
