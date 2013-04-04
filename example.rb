@@ -1,7 +1,17 @@
+
+require "./freebodydiagram.rb"
 require "./vector.rb"
+require "./point.rb"
+
 
 #set this option to true if you wish to see feedback from the calculations
 $global_debug = true
+
+# each (free) body (diagram) must have an array of points
+# resulting forces and moments are calctuated w.r.t. the interface
+# each point in this array is defined with respect to the interface
+# other resulting interfaces from other bodies are represented as 
+# points with corresponfing (force/moment) vector
 
 #todo: make an array with points in space.
 #todo: make an array with lines (consisting of points) in space.
@@ -28,17 +38,22 @@ Ma = Vector.new('Ma','M')
 
 #set vector information to get unit vector with scalar
 Fa.to_vector([10,10,10])
-Fa.to_vector([30,56,87])
+Fb.to_vector([30,56,87])
 Ma.to_vector([0,300,0])
 
 #display info
-p Fa, Fb, Ma
+#p Fa, Fb, Ma
 
 #is the check on type vector working? yes!
-puts Fa.is_F_vector?
-puts Fb.is_M_vector?
-puts Ma.is_M_vector?
+#puts "is Fa a F vector? #{Fa.is_F_vector?}"
+#puts "is Fb a M vector? #{Fb.is_M_vector?}"
+#puts "is Ma a M vector? #{Ma.is_M_vector?}"
 
-#todo: get easy info on vector and scalar
-#puts Fa::scalar
-#puts Fa::unit_vector
+#done: get easy info on vector and scalar
+puts "Fa scalar (magnitude of force) = #{Fa.scalar?}"
+puts "Fa unit vector (i-j-k direction)= #{Fa.unit_vector?}"
+
+#to find the Moment of a Force Vector with a distance there should
+#be at least 1 interface. The interface is the "answer" as in
+#an equation. All forces, mass, moments and other results from other
+#interfaces will be calculated to this interface point.

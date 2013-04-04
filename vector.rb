@@ -1,10 +1,12 @@
 #this class describes the vector class
 
 class Vector
-	def initialize(name,type)
+	def initialize(name,type = nil)
 #		return puts "no usable type, F(orce) of M(oment) info needed" if ((type !="F") | (type != "M"))
 		@name = name
 		@type = type
+		
+		@norm = nil
 		@dXdYdZ = []#[nil,nil,nil]
 		@ijk = []#[nil,nil,nil]
 		@scalar = nil
@@ -35,7 +37,7 @@ class Vector
 
 		#todo: check for nil-information
 
-		#todo check length of array
+		#todo: check length of array
 		
 		#set info in "raw" vector information
 		@dXdYdZ = dXdYdZ
@@ -46,6 +48,7 @@ class Vector
 		dXdYdZ.each do |item|
 		 norm = norm + (item*item)
 		end
+		@norm = norm
 		puts "@dXdYdZ  : #{@dXdYdZ}" if $global_debug
 		puts "norm     : #{norm}" if $global_debug
 		
@@ -73,5 +76,20 @@ class Vector
 		else
 			return false
 		end
+	end
+	def unit_vector?
+		@ijk
+	end
+	def scalar?
+		@scalar
+	end
+end
+
+class Vectorcollection
+		def initialize(name)
+		self.name = name
+		@collection[]
+
+		puts "new vector array = #{name}" if $global_debug
 	end
 end
