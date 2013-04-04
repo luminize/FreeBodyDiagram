@@ -57,3 +57,25 @@ puts "Fa unit vector (i-j-k direction)= #{Fa.unit_vector?}"
 #be at least 1 interface. The interface is the "answer" as in
 #an equation. All forces, mass, moments and other results from other
 #interfaces will be calculated to this interface point.
+
+#first check points collection and vectors collection
+P_coll = Pointcollection.new('FBS-01-points')
+PA = Point.new('P1', [1,2,3])
+PB = Point.new('P2', [4,5,6])
+PC = Point.new('P3', [7,8,9])
+P_coll.add(PA)
+#todo: add point as relative to origin of free body system, or add with thanslation from absolute
+#      for now just see the behavior of 1 body system to check the code
+#todo: add multiple points together
+P_coll.add(PB)
+P_coll.add(PC)
+P_coll.show!
+
+V_coll = Vectorcollection.new('FBS-01-vectors')
+V_coll.add(Fa, PA)
+V_coll.add(Fb, PB)
+V_coll.add(Ma, PA)
+V_coll.show!
+
+#now make free body part "Module1"
+Module1 = Free_body.new('Module1', P_coll, V_coll)
