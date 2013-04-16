@@ -2,6 +2,7 @@
 require "./freebodydiagram.rb"
 require "./vector.rb"
 require "./point.rb"
+require "./equation.rb"
 
 
 #set this option to true if you wish to see feedback from the calculations
@@ -71,7 +72,7 @@ P_coll.add(PB)
 P_coll.add(PC)
 P_coll.show!
 
-V_coll = Vectorcollection.new('FBS-01-vectors')
+V_loads = Vectorcollection.new('FBS-01-vectors')
 V_loads.add(Fa, PA)
 V_loads.add(Fb, PB)
 V_loads.add(Ma, PA)
@@ -81,3 +82,15 @@ V_loads.show!
 
 #now make free body part "Module1"
 Module1 = Free_body.new('Module1', P_coll, V_loads)
+
+
+eq1 = Equation.new
+
+eq1.getEQ.each { |part| puts "factor = #{part[0]} x #{part[1]}"} #output each part of the equation in console
+
+eq1.addCoefficient([4,"Fa_x"])
+eq1.addCoefficient([-3, "Fby"])
+
+eq1.getEQ.each { |part| puts "factor = #{part[0]} x #{part[1]}"}
+
+
