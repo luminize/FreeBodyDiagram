@@ -9,20 +9,24 @@ class Point
 		#puts "position = #{xyz_position}" if $global_debug
 		self.set(xyz_position) if (xyz_position != nil)
 	end
+
 	def set(position)
 		@xyz = position
 		#todo: check for array of 3
 		puts "set point #{@name} to #{@xyz}" if $global_debug
 	end
+
 	def name?
 		@name
 	end
+
 	def position?
 		@xyz
 	end
 end
 
 class Pointcollection
+
 	def initialize(name)
 		@name = name
 		@collection = []
@@ -51,5 +55,23 @@ class Pointcollection
 
 	def name?
 		@name
+	end
+
+	def find(strPointname)
+		#find the position of a point if it is in the array
+		boolPointfound = false
+		pointposition = []
+		@collection.each do |item| 
+			if item.name? == strPointname
+				boolPointfound = true 
+				pointposition = item.position?
+			end
+		end
+
+		if boolPointfound
+			puts "found #{strPointname} at position #{pointposition}" 
+		else
+			puts "could not find a \"#{strPointname}\" in pointcollection #{@name} "
+		end
 	end
 end

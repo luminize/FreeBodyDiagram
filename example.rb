@@ -3,6 +3,7 @@ require "./freebodydiagram.rb"
 require "./vector.rb"
 require "./point.rb"
 require "./equation.rb"
+require "./constraint.rb"
 
 
 #set this option to true if you wish to see feedback from the calculations
@@ -14,12 +15,10 @@ $global_debug = true
 # other resulting interfaces from other bodies are represented as 
 # points with corresponfing (force/moment) vector
 
-#todo: make an array with points in space.
 #todo: make an array with lines (consisting of points) in space.
 #todo: make an array with planes (consisting of lines) in space.
 #todo: make an array with bodies (consisting of planes) in space.
 
-#todo: points from this array should be able to be used by vectors
 #todo: all other lines,planes and bodies are for visualising purposes
 
 #todo: define "interface" as the result of all calculations
@@ -60,37 +59,59 @@ puts "Fa unit vector (i-j-k direction)= #{Fa.unit_vector?}"
 #interfaces will be calculated to this interface point.
 
 #first check points collection and vectors collection
-P_coll = Pointcollection.new('FBS-01-points')
+Points = Pointcollection.new('FBS-01-points')
 PA = Point.new('P1', [1,2,3])
 PB = Point.new('P2', [4,5,6])
 PC = Point.new('P3', [7,8,9])
-P_coll.add(PA)
+Points.add(PA)
 #todo: add point as relative to origin of free body system, or add with thanslation from absolute
 #      for now just see the behavior of 1 body system to check the code
 #todo: add multiple points together
-P_coll.add(PB)
-P_coll.add(PC)
-P_coll.show!
+Points.add(PB)
+Points.add(PC)
 
-V_loads = Vectorcollection.new('FBS-01-vectors')
-V_loads.add(Fa, PA)
-V_loads.add(Fb, PB)
-V_loads.add(Ma, PA)
-V_loads.show!
+#add points for using constraints
+Points.add(PC1 = Point.new('PC1', [0,-5,-5]))
+Points.add(PC2 = Point.new('PC2', [0,5,-5]))
+Points.add(PC3 = Point.new('PC3', [0,-5,5]))
+Points.add(PC4 = Point.new('PC4', [0,5,5]))
+Points.add(PC5 = Point.new('PC5', [0,0,5]))
 
-#todo: make constraints collection
+Points.show!
+
+Loads = Vectorcollection.new('FBS-01-loads')
+Loads.add(Fa, PA)
+Loads.add(Fb, PB)
+Loads.add(Ma, PA)
+Loads.show!
+
+#done: make constraints collection
+Constraints = Constraintcollection.new('FBS-01-constraints')
+Constraints.add(C1 = Constraint.new('C1', [1,1,0,0,0,0]), PC1)
+Constraints.add(C2 = Constraint.new('C2', [0,0,0,0,0,0]), PC2)
+Constraints.add(C3 = Constraint.new('C3', [1,1,0,0,0,0]), PC1)
+Constraints.add(C4 = Constraint.new('C4', [1,0,0,0,0,0]), PC2)
+Constraints.add(C5 = Constraint.new('C5', [0,0,1,0,0,0]), PC2)
 
 #now make free body part "Module1"
-Module1 = Free_body.new('Module1', P_coll, V_loads)
+fbdModule1 = Free_body.new('Module1', Points, Loads, Constraints)
 
+Points.add(PD = Point.new('P4', [4,8,6]))
+
+fbdModule1.points?.show!
 
 eq1 = Equation.new
 
 eq1.getEQ.each { |part| puts "factor = #{part[0]} x #{part[1]}"} #output each part of the equation in console
 
-eq1.addCoefficient([4,"Fa_x"])
-eq1.addCoefficient([-3, "Fby"])
+eq1.addCoefficient([4,'Fa_x'])
+eq1.addCoefficient([-3, 'Fby'])
 
 eq1.getEQ.each { |part| puts "factor = #{part[0]} x #{part[1]}"}
+
+Points.find('P2')
+Points.find('P5')
+
+
 
 

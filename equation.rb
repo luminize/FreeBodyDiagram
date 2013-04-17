@@ -38,39 +38,47 @@ class Equation
 	#an equation consists of coefficients (units*variable) (4a), constants (-56) and an answer (=0)
 	#all my free body diagram equations have a max of 6 coefficients, 1 constant and 1 answer (to keep it simple for now)
 	#more than 6 unknown variables is unsolvable with 6 equations
+	#in the future it might be needed to
 	#initializing gives a 2d array with all "zero" values.
 	#the hash will be a translation between our standard (iterating with calculations) and the variables given
-	def initialize
-		@equation = [
-						[0,  ""] ,
-						[0,  ""] ,
-						[0,  ""] ,
-						[0,  ""] ,
-						[0,  ""] ,
-						[0,  ""] ,
-						[0,  "cons"] ,
-						[0,  "answ"] ,
-						["", "name"]	
-										]
+	def initialize (name)
+		@eqn_leftside = []
+		@eqn_rightside = 0
+		@flt_constant = 0	
+		@strName = name								
 		@cntVariable = 0
 	end
 
-	def getEQ
-		@equation	
+	def getEQ_leftside
+		@eqn_leftside	
+	end
+
+	def getEQ_constants
+		@flt_constant
+	end
+
+	def getEQ_leftside
+		@eqn_rightside	
+	end
+
+	def setC(floatingnumber)
+		@flt_constant = floatingnumber
 	end
 
 	def addCoefficient(arrInput)
-		#there are max 6 (0 to 5) variables/coefficients to add to the equation
-		#we will keep an internal counter cntVariable
 
 		#todo: check for arr_coefficient = aray of 2, with first [0] a unit and second [1] a string (type Coefficient)
 		#todo: check that the coefficient to be added does is not already added (no adding 5a, and then -9a)
 		#todo: cntVariable has to stay under 6 (max = 5)
 		
-		#set coeficient in @equation[i]
-		@equation[@cntVariable] = arrInput
+		#set coeficient in @eqn_leftside[i]
+		@eqn_leftside[ << arrInput
 		#up the counter
 		@cntVariable += 1
+	end
+
+	def how_many_vars?
+		return @cntVariable + 1
 	end
 end
 
