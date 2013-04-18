@@ -87,30 +87,36 @@ Loads.show!
 
 #done: make constraints collection
 Constraints = Constraintcollection.new('FBS-01-constraints')
-Constraints.add(C1 = Constraint.new('C1', [1,1,0,0,0,0]), PC1)
-Constraints.add(C2 = Constraint.new('C2', [0,0,0,0,0,0]), PC2)
-Constraints.add(C3 = Constraint.new('C3', [1,1,0,0,0,0]), PC1)
-Constraints.add(C4 = Constraint.new('C4', [1,0,0,0,0,0]), PC2)
-Constraints.add(C5 = Constraint.new('C5', [0,0,1,0,0,0]), PC2)
+Constraints.add(C1 = Constraint.new('C1', [0,0,0,0,0,0]), PC1) #wrong, needs to be [1,0,0,0,0,0]
+Constraints.add(C2 = Constraint.new('C2', [0,1,0,0,0,0]), PC2)
+Constraints.add(C3 = Constraint.new('C3', [1,1,0,0,0,0]), PC3)
+Constraints.add(C4 = Constraint.new('C4', [1,0,0,0,0,0]), PC4)
+Constraints.add(C5 = Constraint.new('C5', [0,0,1,0,0,0]), PC5)
 
 #now make free body part "Module1"
-fbdModule1 = Free_body.new('Module1', Points, Loads, Constraints)
+FBDModule1 = Free_body.new('Module1', Points, Loads, Constraints)
 
 Points.add(PD = Point.new('P4', [4,8,6]))
 
-fbdModule1.points?.show!
+FBDModule1.points?.show!
 
-eq1 = Equation.new
+eq1 = Equation.new('eq1')
 
-eq1.getEQ.each { |part| puts "factor = #{part[0]} x #{part[1]}"} #output each part of the equation in console
+eq1.getEQ_leftside.each { |part| puts "factor = #{part[0]} x #{part[1]}"} #output each part of the equation in console
 
 eq1.addCoefficient([4,'Fa_x'])
 eq1.addCoefficient([-3, 'Fby'])
 
-eq1.getEQ.each { |part| puts "factor = #{part[0]} x #{part[1]}"}
+eq1.getEQ_leftside.each { |part| puts "factor = #{part[0]} x #{part[1]}"}
 
 Points.find('P2')
 Points.find('P5')
+
+FBDModule1.destill_equations
+
+#correct constrainttype
+C1.setvector([1,0,0,0,0,0])
+FBDModule1.destill_equations
 
 
 

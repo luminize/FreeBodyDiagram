@@ -1,5 +1,6 @@
 #require "./vector.rb"
 #require "./point.rb"
+#require "./equation.rb"
 
 class Free_body
 	def initialize(name, pointscollection, loadscollection, constraintscollection)
@@ -17,7 +18,7 @@ class Free_body
 		@eqn_Mz = Equation.new("sum Mz")
 
 		#the array containing all yet known equations, equations for frictin can be added later
-		@arrEquantion = [@eqn_Fx, @eqn_Fy, @eqn_Fz, eqn_Mx, eqn_My, eqn_Mz]
+		@arrEquantion = [@eqn_Fx, @eqn_Fy, @eqn_Fz, @eqn_Mx, @eqn_My, @eqn_Mz]
 
 		@origin = Point.new("origin", [0,0,0])
 
@@ -96,19 +97,64 @@ class Free_body
 	end 
 
 	def destill_equations
-		#traverse all constraints and destill x,y,z,Mx,My,Mz constraints
+		#traverse all constraints and destill Fx,Fy,Fz,Mx,My,Mz constraints
 		equationpart = []
 		constraintvector = []
 		variables = []
 		#traverse the array
-		@constraintscollection.each do |constraint|
-			constraintvector = constraint[1].constraint? 	# this will get the constraint vector [0,1,0,0,0,0] for iterating 
+		#puts @constraintscollection
+		@constraintscollection.get.each do |content|#, item|
+			constraintvector = content[0].vector? 	# this will get the constraint vector [0,1,0,0,0,0] for iterating 
 															# so we can break up the components in the different equations
-			#
-
-			[0].name?
+			#p item[1].name? 
+			#p constraintvector
+			puts "point #{content[1].name?} at #{content[1].position?} constrained : #{constraintvector}"
+			constraintvector.each_index do |index|
+				#we now run each index and see if the value is not zero
+				#the index itself prescribes into which equations the factor has to go
+				
+				puts "value: #{constraintvector[index]}, index: #{index}"
+				
+				#todo: do not take factor in equation of moments if distance == 0
+				
+				if constraintvector[index] != 0 then
+					case index
+					when 0 #sum Fx and in My and Mz
+						puts "add to sum Fx : #{content[1].name?}.Fx"
+						#todo: calculate the distance from content[1] (=point) to zero point (point to calculate to)
+						puts "add to sum My : #{content[1].name?}.Fx distance #{content[1].position?[index+2]}"
+						puts "add to sum Mz : #{content[1].name?}.Fx distance #{content[1].position?[index+1]}"
+						#
+					when 1 #sum Fy and in Mx and Mz
+						puts "add to sum Fy : #{content[1].name?}.Fy"
+						#todo: calculate the distance from content[1] (=point) to zero point (point to calculate to)
+						puts "add to sum Mx : #{content[1].name?}.Fy distance #{content[1].position?[index+0]}"
+						puts "add to sum Mz : #{content[1].name?}.Fy distance #{content[1].position?[index-1]}"
+						#
+					when 2 #sum Fz and in Mx and My
+						puts "add to sum Fz : #{content[1].name?}.Fz"
+						#todo: calculate the distance from content[1] (=point) to zero point (point to calculate to)
+						puts "add to sum Mx : #{content[1].name?}.Fz distance #{content[1].position?[index-1]}"
+						puts "add to sum My : #{content[1].name?}.Fz distance #{content[1].position?[index-2]}"
+						#
+					when 3 #sum Mx
+						puts "add to sum Mx : #{content[1].name?}.Mx}"
+						#
+					when 4 #sum My
+						puts "add to sum My : #{content[1].name?}.My}"
+						#
+					when 5 #sum Mz
+						puts "add to sum Mz : #{content[1].name?}.Mz}"
+						#
+					else
+						#something that is not supposed to happen
+					end
+				#end of if statement
+				end 
+			#end of iterating constraintvector
+			end
+		#end of iterating constraintscollection
 		end
-
-		
+	#end of method	
 	end
 end

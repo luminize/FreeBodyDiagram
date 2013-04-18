@@ -12,7 +12,11 @@ class Constraint
 		@name
 	end
 
-	def constraint?
+	def setvector(constrainttype)
+		@constraintvector = constrainttype
+	end
+
+	def vector?
 		@constraintvector
 	end
 end
@@ -31,7 +35,7 @@ class Constraintcollection
 
 	def add(constraint,point)
 		#todo: check if input is of type "Constraint" and point is of type "Point"
-		@collection << [vector, point]
+		@collection << [constraint, point]
 		#puts "added vector, now collection = #{@collection}"
 	end
 

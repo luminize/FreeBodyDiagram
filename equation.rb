@@ -43,7 +43,7 @@ class Equation
 	#the hash will be a translation between our standard (iterating with calculations) and the variables given
 	def initialize (name)
 		@eqn_leftside = []
-		@eqn_rightside = 0
+		@eqn_rightside = []
 		@flt_constant = 0	
 		@strName = name								
 		@cntVariable = 0
@@ -72,7 +72,7 @@ class Equation
 		#todo: cntVariable has to stay under 6 (max = 5)
 		
 		#set coeficient in @eqn_leftside[i]
-		@eqn_leftside[ << arrInput
+		@eqn_leftside << arrInput
 		#up the counter
 		@cntVariable += 1
 	end
