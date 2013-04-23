@@ -44,20 +44,26 @@ class Equation
 	def initialize (name)
 		@eqn_leftside = []
 		@eqn_rightside = []
-		@flt_constant = 0	
+		@flt_constant_l = 0	
+		@flt_constant_r = 0	
 		@strName = name								
 		@cntVariable = 0
+		@arrVariable = []
 	end
 
 	def getEQ_leftside
 		@eqn_leftside	
 	end
 
-	def getEQ_constants
-		@flt_constant
+	def getEQ_constant_l
+		@flt_constant_l
 	end
 
-	def getEQ_leftside
+	def getEQ_constant_r
+		@flt_constant_r
+	end
+
+	def getEQ_rightside
 		@eqn_rightside	
 	end
 
@@ -65,11 +71,29 @@ class Equation
 		@flt_constant = floatingnumber
 	end
 
-	def addCoefficient(arrInput)
+	def getVariables
+		@arrVariable
+	end
+
+	def reset
+		#reset equation first before re-running destillation of equations
+		@eqn_leftside = []
+		@eqn_rightside = []
+		@flt_constant_l = 0	
+		@flt_constant_r = 0								
+		@cntVariable = 0
+		@arrVariable = []
+	end
+
+	def addCoefficient_l(arrInput)
 
 		#todo: check for arr_coefficient = aray of 2, with first [0] a unit and second [1] a string (type Coefficient)
-		#todo: check that the coefficient to be added does is not already added (no adding 5a, and then -9a)
-		#todo: cntVariable has to stay under 6 (max = 5)
+		#todo: check that the coefficient to be added is not already added (no adding 5a, and then -9a)
+		#      if so, then on the left side, add
+		
+		#check if there already is a variable with the same name
+		@arrVariable << arrInput[1] if not @arrVariable.include?(arrInput[1])
+		#puts "arrInput[1] = #{arrInput[1]}"
 		
 		#set coeficient in @eqn_leftside[i]
 		@eqn_leftside << arrInput
@@ -77,8 +101,38 @@ class Equation
 		@cntVariable += 1
 	end
 
+	def addCoefficient_r(arrInput)
+		#todo: like addCoefficient_l
+	end
+
 	def how_many_vars?
 		return @cntVariable + 1
+	end
+
+	def show_summary
+		puts "name          : #{@strName}"
+		puts "#{@cntVariable} variable(s) : #{@arrVariable}"
+		puts "leftside      : #{@eqn_leftside}"
+		puts "constant_l    : #{@flt_constant_l}"
+		puts "rightside     : #{@eqn_rightside}"
+		puts "constant_r    : #{@flt_constant_r}"
+		self.display_equation_as_string
+	end
+
+	def display_equation_as_string
+		strHelper_1 = "#{@strName} ---> "
+		strHelper_2 = ""
+		@eqn_leftside.each { |coeff| strHelper_1 << "(#{coeff[0]} x #{coeff[1]}) + "}
+		strHelper_1 << "#{@flt_constant_l} = "
+		if @eqn_rightside == [] then
+			strHelper_2 << "0"
+			strHelper_2 << " + #{@flt_constant_r}"
+			strHelper_2 = "0" if strHelper_2 == "0 + 0"
+		else
+			@eqn_rightside.each { |coeff| strHelper << "(#{coeff[0]} x #{coeff[1]}) + "}
+			strHelper << "#{@flt_constant_r}"
+		end
+		puts "#{strHelper_1 << strHelper_2}"
 	end
 end
 

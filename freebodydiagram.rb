@@ -19,6 +19,8 @@ class Free_body
 
 		#the array containing all yet known equations, equations for frictin can be added later
 		@arrEquantion = [@eqn_Fx, @eqn_Fy, @eqn_Fz, @eqn_Mx, @eqn_My, @eqn_Mz]
+		@cntVariables = 0
+		@arrVariables = []
 
 		@origin = Point.new("origin", [0,0,0])
 
@@ -83,14 +85,9 @@ class Free_body
 	end
 
 #todo: make way of figuring out how to transform a restraints collection to
-#      - an equations collection
 #      - check restraints variables to see if there are enough restraints in 3D or 2D free body
 #      - check loads collection to see if there are loads in which direction (2D or 3D)
-# 	   - check rotation around x (moments) can only have y and z factors, same goes for moment around y and z
 
-# 	   loadsc + restraints -> equations
-# 	   destill from max 6 equations -> unknown variables
-# 	   check if number of unknown variables >= number of equations
 
 	def check_validity(arr_constraints, arr_equations)
 		#todo: count all constraint"parts" and see if the amount of equaions equals the amount of unknown variables
@@ -100,7 +97,12 @@ class Free_body
 		#traverse all constraints and destill Fx,Fy,Fz,Mx,My,Mz constraints
 		equationpart = []
 		constraintvector = []
-		variables = []
+		distance = nil
+		#reset first all values of equation except name for array of equations
+		@arrEquantion.each {|equation| equation.reset}
+		@arrVariables = []
+		@cntVariables = 0
+
 		#traverse the array
 		#puts @constraintscollection
 		@constraintscollection.get.each do |content|#, item|
@@ -113,38 +115,92 @@ class Free_body
 				#we now run each index and see if the value is not zero
 				#the index itself prescribes into which equations the factor has to go
 				
-				puts "value: #{constraintvector[index]}, index: #{index}"
+				#puts "value: #{constraintvector[index]}, index: #{index}"
 				
-				#todo: do not take factor in equation of moments if distance == 0
+				#done: do not take factor in equation of moments if distance == 0
 				
 				if constraintvector[index] != 0 then
 					case index
 					when 0 #sum Fx and in My and Mz
 						puts "add to sum Fx : #{content[1].name?}.Fx"
-						#todo: calculate the distance from content[1] (=point) to zero point (point to calculate to)
-						puts "add to sum My : #{content[1].name?}.Fx distance #{content[1].position?[index+2]}"
-						puts "add to sum Mz : #{content[1].name?}.Fx distance #{content[1].position?[index+1]}"
+						equationpart = [1, "#{content[1].name?}.Fx"]
+						#add to sum Fx
+						@eqn_Fx.addCoefficient_l(equationpart)
+
+						distance = content[1].position?[index+2] - @origin.position?[index+2]
+						if distance != 0 then
+							puts "add to sum My : #{content[1].name?}.Fx distance #{distance}" 
+							equationpart = [distance, "#{content[1].name?}.Fx"]
+							#add to sum My
+							@eqn_My.addCoefficient_l(equationpart)
+						end
+
+						distance = content[1].position?[index+1] - @origin.position?[index+1]
+						if distance != 0
+							puts "add to sum Mz : #{content[1].name?}.Fx distance #{distance}" 
+							equationpart = [distance, "#{content[1].name?}.Fx"]
+							#add to sum Mz
+							@eqn_Mz.addCoefficient_l(equationpart)
+						end
 						#
 					when 1 #sum Fy and in Mx and Mz
 						puts "add to sum Fy : #{content[1].name?}.Fy"
-						#todo: calculate the distance from content[1] (=point) to zero point (point to calculate to)
-						puts "add to sum Mx : #{content[1].name?}.Fy distance #{content[1].position?[index+0]}"
-						puts "add to sum Mz : #{content[1].name?}.Fy distance #{content[1].position?[index-1]}"
+						equationpart = [1, "#{content[1].name?}.Fy"]
+						#add to sum Fy
+						@eqn_Fy.addCoefficient_l(equationpart)
+
+						distance = content[1].position?[index+0] - @origin.position?[index+0]
+						if distance != 0 then
+							puts "add to sum Mx : #{content[1].name?}.Fy distance #{distance}"
+							equationpart = [distance, "#{content[1].name?}.Fy"]
+							#add to sum Mx
+							@eqn_Mx.addCoefficient_l(equationpart)
+						end
+						
+						distance = content[1].position?[index-1] - @origin.position?[index-1]
+						if distance != 0 then
+							puts "add to sum Mz : #{content[1].name?}.Fy distance #{distance}"
+							equationpart = [distance, "#{content[1].name?}.Fy"]
+							#add to sum Mz
+							@eqn_Mz.addCoefficient_l(equationpart)
+						end
 						#
 					when 2 #sum Fz and in Mx and My
 						puts "add to sum Fz : #{content[1].name?}.Fz"
-						#todo: calculate the distance from content[1] (=point) to zero point (point to calculate to)
-						puts "add to sum Mx : #{content[1].name?}.Fz distance #{content[1].position?[index-1]}"
-						puts "add to sum My : #{content[1].name?}.Fz distance #{content[1].position?[index-2]}"
+						equationpart = [1, "#{content[1].name?}.Fz"]
+						#add to sum Fz
+						@eqn_Fz.addCoefficient_l(equationpart)
+
+						distance = content[1].position?[index-1] - @origin.position?[index-1]
+						if distance != 0 then
+							puts "add to sum Mx : #{content[1].name?}.Fz distance #{distance}"
+							equationpart = [distance, "#{content[1].name?}.Fz"]
+							#add to sum Mx
+							@eqn_Mx.addCoefficient_l(equationpart)
+						end
+
+						distance = content[1].position?[index-2] - @origin.position?[index-1]
+						if distance != 0 then
+							puts "add to sum My : #{content[1].name?}.Fz distance #{distance}"
+							equationpart = [distance, "#{content[1].name?}.Fz"]
+							#add to sum Mz
+							@eqn_Mz.addCoefficient_l(equationpart)
+						end
 						#
 					when 3 #sum Mx
 						puts "add to sum Mx : #{content[1].name?}.Mx}"
+						equationpart = [1, "#{content[1].name?}.Mx"]
+						@eqn_Mx.addCoefficient_l(equationpart)
 						#
 					when 4 #sum My
 						puts "add to sum My : #{content[1].name?}.My}"
+						equationpart = [1, "#{content[1].name?}.My"]
+						@eqn_My.addCoefficient_l(equationpart)
 						#
 					when 5 #sum Mz
 						puts "add to sum Mz : #{content[1].name?}.Mz}"
+						equationpart = [1, "#{content[1].name?}.Mz"]
+						@eqn_Mz.addCoefficient_l(equationpart)
 						#
 					else
 						#something that is not supposed to happen
@@ -155,6 +211,17 @@ class Free_body
 			end
 		#end of iterating constraintscollection
 		end
-	#end of method	
+		
+		#give output summary of equations in array
+		@arrEquantion.each do |value| 
+			puts "#{value.show_summary}"
+			#getting the variables for each equation and adding to @arrVariables = [] if new unique variable
+			value.getVariables.each { |name| @arrVariables << name if not @arrVariables.include?(name)}
+		end
+
+		puts "#{@name} has #{@arrVariables.count} variables : #{@arrVariables}"
+		puts "there are #{@arrEquantion.count} equations and theoretically should be solvable"
+	
+	#end of method "destill_equations"
 	end
 end

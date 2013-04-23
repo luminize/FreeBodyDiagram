@@ -104,15 +104,15 @@ eq1 = Equation.new('eq1')
 
 eq1.getEQ_leftside.each { |part| puts "factor = #{part[0]} x #{part[1]}"} #output each part of the equation in console
 
-eq1.addCoefficient([4,'Fa_x'])
-eq1.addCoefficient([-3, 'Fby'])
+eq1.addCoefficient_l([4,'Fa_x'])
+eq1.addCoefficient_l([-3, 'Fby'])
 
-eq1.getEQ_leftside.each { |part| puts "factor = #{part[0]} x #{part[1]}"}
+#eq1.getEQ_leftside.each { |part| puts "factor = #{part[0]} x #{part[1]}"}
 
 Points.find('P2')
 Points.find('P5')
 
-FBDModule1.destill_equations
+#FBDModule1.destill_equations
 
 #correct constrainttype
 C1.setvector([1,0,0,0,0,0])
