@@ -9,6 +9,15 @@ require "./constraint.rb"
 #set this option to true if you wish to see feedback from the calculations
 $global_debug = true
 
+#clear console
+system "clear"
+
+#STDOUT.flush
+print "\033[0m"
+print "\033[34mtekst\r\n"
+print "\033[1mtekst\r\n"
+#print "\033[4mtekst\r\n"
+
 # each (free) body (diagram) must have an array of points
 # resulting forces and moments are calctuated w.r.t. the interface
 # each point in this array is defined with respect to the interface

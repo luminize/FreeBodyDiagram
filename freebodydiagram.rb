@@ -3,6 +3,7 @@
 #require "./equation.rb"
 
 class Free_body
+	attr_accessor arrEquantion
 	def initialize(name, pointscollection, loadscollection, constraintscollection)
 		@name = name # => "FB_01_body1"
 		#todo: check for types of collections of points, vectors and constraints

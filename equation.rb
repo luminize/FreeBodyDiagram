@@ -86,24 +86,32 @@ class Equation
 	end
 
 	def addCoefficient_l(arrInput)
+		addCoefficient(@eqn_leftside, arrInput)
+	end
 
-		#todo: check for arr_coefficient = aray of 2, with first [0] a unit and second [1] a string (type Coefficient)
+	def addCoefficient_r(arrInput)
+		addCoefficient(@eqn_rightside, arrInput)
+	end
+
+	def addCoefficient(left_or_right_eqn, arrInput)
+				#todo: check for arr_coefficient = aray of 2, with first [0] a unit and second [1] a string (type Coefficient)
 		#todo: check that the coefficient to be added is not already added (no adding 5a, and then -9a)
 		#      if so, then on the left side, add
 		
 		#check if there already is a variable with the same name
-		@arrVariable << arrInput[1] if not @arrVariable.include?(arrInput[1])
-		#puts "arrInput[1] = #{arrInput[1]}"
+		#do nothing if so
+		if not @arrVariable.include?(arrInput[1])
+			@arrVariable << arrInput[1] 
+			#set coeficient in @eqn_leftside[i]
+			left_or_right_eqn << arrInput
+			#up the counter
+			@cntVariable += 1
+		else
+			puts "variable #{arrInput[1] already exists}. Nothing will be done. Check your code"
+		end
 		
-		#set coeficient in @eqn_leftside[i]
-		@eqn_leftside << arrInput
-		#up the counter
-		@cntVariable += 1
 	end
 
-	def addCoefficient_r(arrInput)
-		#todo: like addCoefficient_l
-	end
 
 	def how_many_vars?
 		return @cntVariable + 1
@@ -122,8 +130,14 @@ class Equation
 	def display_equation_as_string
 		strHelper_1 = "#{@strName} ---> "
 		strHelper_2 = ""
+
+		#iterate all coefficients on left side
 		@eqn_leftside.each { |coeff| strHelper_1 << "(#{coeff[0]} x #{coeff[1]}) + "}
+		
+		#add constant left side value and '=' sign
 		strHelper_1 << "#{@flt_constant_l} = "
+		
+		#iterate and clean up right side because showing "0 + 0" is stupid
 		if @eqn_rightside == [] then
 			strHelper_2 << "0"
 			strHelper_2 << " + #{@flt_constant_r}"
