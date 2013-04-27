@@ -3,7 +3,7 @@
 #require "./equation.rb"
 
 class Free_body
-	attr_accessor arrEquantion
+	attr_accessor :arrEquantion
 	def initialize(name, pointscollection, loadscollection, constraintscollection)
 		@name = name # => "FB_01_body1"
 		#todo: check for types of collections of points, vectors and constraints
@@ -224,5 +224,18 @@ class Free_body
 		puts "there are #{@arrEquantion.count} equations and theoretically should be solvable"
 	
 	#end of method "destill_equations"
+	end
+
+	def unique_FBD_variables
+		arrHelper = []
+		#iterate equation array
+		#get all variables
+		#add those dumbly to arrHelper
+		#get unique variables and add them to @arrVariables
+		@arrEquantion.each do |value| 
+			#getting the variables for each equation and adding to @arrVariables = [] if new unique variable
+			value.getVariables.each { |name| @arrVariables << name if not @arrVariables.include?(name)}
+		end
+
 	end
 end

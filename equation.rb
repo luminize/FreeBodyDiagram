@@ -85,12 +85,12 @@ class Equation
 		@arrVariable = []
 	end
 
-	def addCoefficient_l(arrInput)
-		addCoefficient(@eqn_leftside, arrInput)
+	def addCoefficient_l(arrInput_l)
+		addCoefficient(@eqn_leftside, arrInput_l)
 	end
 
-	def addCoefficient_r(arrInput)
-		addCoefficient(@eqn_rightside, arrInput)
+	def addCoefficient_r(arrInput_r)
+		addCoefficient(@eqn_rightside, arrInput_r)
 	end
 
 	def addCoefficient(left_or_right_eqn, arrInput)
@@ -107,11 +107,10 @@ class Equation
 			#up the counter
 			@cntVariable += 1
 		else
-			puts "variable #{arrInput[1] already exists}. Nothing will be done. Check your code"
+			puts "variable #{arrInput[1]} already exists. Nothing will be done. Check your code"
 		end
-		
+	#end method addCoefficient	
 	end
-
 
 	def how_many_vars?
 		return @cntVariable + 1
