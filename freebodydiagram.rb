@@ -96,7 +96,7 @@ class Free_body
 
 	def destill_equations
 		#traverse all constraints and destill Fx,Fy,Fz,Mx,My,Mz constraints
-		equationpart = []
+		term = []
 		constraintvector = []
 		distance = nil
 		#reset first all values of equation except name for array of equations
@@ -124,84 +124,84 @@ class Free_body
 					case index
 					when 0 #sum Fx and in My and Mz
 						puts "add to sum Fx : #{content[1].name?}.Fx"
-						equationpart = [1, "#{content[1].name?}.Fx"]
+						term = [1, "#{content[1].name?}.Fx"]
 						#add to sum Fx
-						@eqn_Fx.addCoefficient_l(equationpart)
+						@eqn_Fx.add_term_l(term)
 
 						distance = content[1].position?[index+2] - @origin.position?[index+2]
 						if distance != 0 then
 							puts "add to sum My : #{content[1].name?}.Fx distance #{distance}" 
-							equationpart = [distance, "#{content[1].name?}.Fx"]
+							term = [distance, "#{content[1].name?}.Fx"]
 							#add to sum My
-							@eqn_My.addCoefficient_l(equationpart)
+							@eqn_My.add_term_l(term)
 						end
 
 						distance = content[1].position?[index+1] - @origin.position?[index+1]
 						if distance != 0
 							puts "add to sum Mz : #{content[1].name?}.Fx distance #{distance}" 
-							equationpart = [distance, "#{content[1].name?}.Fx"]
+							term = [distance, "#{content[1].name?}.Fx"]
 							#add to sum Mz
-							@eqn_Mz.addCoefficient_l(equationpart)
+							@eqn_Mz.add_term_l(term)
 						end
 						#
 					when 1 #sum Fy and in Mx and Mz
 						puts "add to sum Fy : #{content[1].name?}.Fy"
-						equationpart = [1, "#{content[1].name?}.Fy"]
+						term = [1, "#{content[1].name?}.Fy"]
 						#add to sum Fy
-						@eqn_Fy.addCoefficient_l(equationpart)
+						@eqn_Fy.add_term_l(term)
 
 						distance = content[1].position?[index+0] - @origin.position?[index+0]
 						if distance != 0 then
 							puts "add to sum Mx : #{content[1].name?}.Fy distance #{distance}"
-							equationpart = [distance, "#{content[1].name?}.Fy"]
+							term = [distance, "#{content[1].name?}.Fy"]
 							#add to sum Mx
-							@eqn_Mx.addCoefficient_l(equationpart)
+							@eqn_Mx.add_term_l(term)
 						end
 						
 						distance = content[1].position?[index-1] - @origin.position?[index-1]
 						if distance != 0 then
 							puts "add to sum Mz : #{content[1].name?}.Fy distance #{distance}"
-							equationpart = [distance, "#{content[1].name?}.Fy"]
+							term = [distance, "#{content[1].name?}.Fy"]
 							#add to sum Mz
-							@eqn_Mz.addCoefficient_l(equationpart)
+							@eqn_Mz.add_term_l(term)
 						end
 						#
 					when 2 #sum Fz and in Mx and My
 						puts "add to sum Fz : #{content[1].name?}.Fz"
-						equationpart = [1, "#{content[1].name?}.Fz"]
+						term = [1, "#{content[1].name?}.Fz"]
 						#add to sum Fz
-						@eqn_Fz.addCoefficient_l(equationpart)
+						@eqn_Fz.add_term_l(term)
 
 						distance = content[1].position?[index-1] - @origin.position?[index-1]
 						if distance != 0 then
 							puts "add to sum Mx : #{content[1].name?}.Fz distance #{distance}"
-							equationpart = [distance, "#{content[1].name?}.Fz"]
+							term = [distance, "#{content[1].name?}.Fz"]
 							#add to sum Mx
-							@eqn_Mx.addCoefficient_l(equationpart)
+							@eqn_Mx.add_term_l(term)
 						end
 
 						distance = content[1].position?[index-2] - @origin.position?[index-1]
 						if distance != 0 then
 							puts "add to sum My : #{content[1].name?}.Fz distance #{distance}"
-							equationpart = [distance, "#{content[1].name?}.Fz"]
+							term = [distance, "#{content[1].name?}.Fz"]
 							#add to sum Mz
-							@eqn_Mz.addCoefficient_l(equationpart)
+							@eqn_Mz.add_term_l(term)
 						end
 						#
 					when 3 #sum Mx
 						puts "add to sum Mx : #{content[1].name?}.Mx}"
-						equationpart = [1, "#{content[1].name?}.Mx"]
-						@eqn_Mx.addCoefficient_l(equationpart)
+						term = [1, "#{content[1].name?}.Mx"]
+						@eqn_Mx.add_term_l(term)
 						#
 					when 4 #sum My
 						puts "add to sum My : #{content[1].name?}.My}"
-						equationpart = [1, "#{content[1].name?}.My"]
-						@eqn_My.addCoefficient_l(equationpart)
+						term = [1, "#{content[1].name?}.My"]
+						@eqn_My.add_term_l(term)
 						#
 					when 5 #sum Mz
 						puts "add to sum Mz : #{content[1].name?}.Mz}"
-						equationpart = [1, "#{content[1].name?}.Mz"]
-						@eqn_Mz.addCoefficient_l(equationpart)
+						term = [1, "#{content[1].name?}.Mz"]
+						@eqn_Mz.add_term_l(term)
 						#
 					else
 						#something that is not supposed to happen

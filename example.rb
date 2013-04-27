@@ -15,8 +15,8 @@ system "clear"
 #STDOUT.flush
 print "\033[0m"
 print "\033[34mtekst\r\n"
-print "\033[1mtekst\r\n"
-#print "\033[4mtekst\r\n"
+#print "\033[1mtekst\r\n"
+#print "\033[0m"
 
 # each (free) body (diagram) must have an array of points
 # resulting forces and moments are calctuated w.r.t. the interface
@@ -111,10 +111,10 @@ FBDModule1.points?.show!
 
 eq1 = Equation.new('eq1')
 
-eq1.getEQ_leftside.each { |part| puts "factor = #{part[0]} x #{part[1]}"} #output each part of the equation in console
+eq1.get_terms_l.each { |part| puts "factor = #{part[0]} x #{part[1]}"} #output each part of the equation in console
 
-eq1.addCoefficient_l([4,'Fa_x'])
-eq1.addCoefficient_l([-3, 'Fby'])
+eq1.add_term_l([4,'Fa_x'])
+eq1.add_term_l([-3, 'Fby'])
 
 #eq1.getEQ_leftside.each { |part| puts "factor = #{part[0]} x #{part[1]}"}
 
@@ -126,6 +126,9 @@ Points.find('P5')
 #correct constrainttype
 C1.setvector([1,0,0,0,0,0])
 FBDModule1.destill_equations
+
+
+
 
 
 

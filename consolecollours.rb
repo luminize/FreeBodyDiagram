@@ -1,2 +1,0 @@
-class Consolecollours
-end

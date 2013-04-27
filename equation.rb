@@ -35,15 +35,14 @@
 # all parts are added because forces or position w.r.t. position of moment dictate direction
 
 class Equation
-	#an equation consists of coefficients (units*variable) (4a), constants (-56) and an answer (=0)
-	#all my free body diagram equations have a max of 6 coefficients, 1 constant and 1 answer (to keep it simple for now)
-	#more than 6 unknown variables is unsolvable with 6 equations
-	#in the future it might be needed to
-	#initializing gives a 2d array with all "zero" values.
-	#the hash will be a translation between our standard (iterating with calculations) and the variables given
+	#an equation consists of : expressions, both left and right of the "=" sign
+	#                          terms (coefficient, operator, variable) (4 * a)
+	#                          constants (-56)
+	#                          statement (=)
+	#                          
 	def initialize (name)
-		@eqn_leftside = []
-		@eqn_rightside = []
+		@arr_terms_l = []
+		@arr_terms_r = []
 		@flt_constant_l = 0	
 		@flt_constant_r = 0	
 		@strName = name								
@@ -51,20 +50,20 @@ class Equation
 		@arrVariable = []
 	end
 
-	def getEQ_leftside
-		@eqn_leftside	
+	def get_terms_l
+		@arr_terms_l	
 	end
 
-	def getEQ_constant_l
+	def get_terms_r
+		@arr_terms_r	
+	end
+
+	def get_cons_l
 		@flt_constant_l
 	end
 
-	def getEQ_constant_r
+	def get_cons_r
 		@flt_constant_r
-	end
-
-	def getEQ_rightside
-		@eqn_rightside	
 	end
 
 	def setC(floatingnumber)
@@ -77,24 +76,24 @@ class Equation
 
 	def reset
 		#reset equation first before re-running destillation of equations
-		@eqn_leftside = []
-		@eqn_rightside = []
+		@arr_terms_l = []
+		@arr_terms_r = []
 		@flt_constant_l = 0	
 		@flt_constant_r = 0								
 		@cntVariable = 0
 		@arrVariable = []
 	end
 
-	def addCoefficient_l(arrInput_l)
-		addCoefficient(@eqn_leftside, arrInput_l)
+	def add_term_l(arrInput_l)
+		add_term(@arr_terms_l, arrInput_l)
 	end
 
-	def addCoefficient_r(arrInput_r)
-		addCoefficient(@eqn_rightside, arrInput_r)
+	def add_term_r(arrInput_r)
+		add_term(@arr_terms_r, arrInput_r)
 	end
 
-	def addCoefficient(left_or_right_eqn, arrInput)
-				#todo: check for arr_coefficient = aray of 2, with first [0] a unit and second [1] a string (type Coefficient)
+	def add_term(left_or_right_eqn, arrInput)
+		#todo: check for arr_coefficient = aray of 2, with first [0] a unit and second [1] a string (type Coefficient)
 		#todo: check that the coefficient to be added is not already added (no adding 5a, and then -9a)
 		#      if so, then on the left side, add
 		
@@ -102,14 +101,14 @@ class Equation
 		#do nothing if so
 		if not @arrVariable.include?(arrInput[1])
 			@arrVariable << arrInput[1] 
-			#set coeficient in @eqn_leftside[i]
+			#set coeficient in @arr_terms_l[i]
 			left_or_right_eqn << arrInput
 			#up the counter
 			@cntVariable += 1
 		else
 			puts "variable #{arrInput[1]} already exists. Nothing will be done. Check your code"
 		end
-	#end method addCoefficient	
+	#end method add_term	
 	end
 
 	def how_many_vars?
@@ -117,32 +116,30 @@ class Equation
 	end
 
 	def show_summary
-		puts "name          : #{@strName}"
-		puts "#{@cntVariable} variable(s) : #{@arrVariable}"
-		puts "leftside      : #{@eqn_leftside}"
-		puts "constant_l    : #{@flt_constant_l}"
-		puts "rightside     : #{@eqn_rightside}"
-		puts "constant_r    : #{@flt_constant_r}"
+		puts "name              : #{@strName}"
+		puts "#{@cntVariable} variable(s)     : #{@arrVariable}"
+		puts "expression left   : #{@arr_terms_l} + #{@flt_constant_l}"
+		puts "expression right  : #{@arr_terms_r} + #{@flt_constant_r}"
 		self.display_equation_as_string
 	end
 
 	def display_equation_as_string
-		strHelper_1 = "#{@strName} ---> "
+		strHelper_1 = "#{@strName}         ---> "
 		strHelper_2 = ""
 
 		#iterate all coefficients on left side
-		@eqn_leftside.each { |coeff| strHelper_1 << "(#{coeff[0]} x #{coeff[1]}) + "}
+		@arr_terms_l.each { |coeff| strHelper_1 << "(#{coeff[0]} x #{coeff[1]}) + "}
 		
 		#add constant left side value and '=' sign
 		strHelper_1 << "#{@flt_constant_l} = "
 		
 		#iterate and clean up right side because showing "0 + 0" is stupid
-		if @eqn_rightside == [] then
+		if @arr_terms_r == [] then
 			strHelper_2 << "0"
 			strHelper_2 << " + #{@flt_constant_r}"
 			strHelper_2 = "0" if strHelper_2 == "0 + 0"
 		else
-			@eqn_rightside.each { |coeff| strHelper << "(#{coeff[0]} x #{coeff[1]}) + "}
+			@arr_terms_r.each { |coeff| strHelper << "(#{coeff[0]} x #{coeff[1]}) + "}
 			strHelper << "#{@flt_constant_r}"
 		end
 		puts "#{strHelper_1 << strHelper_2}"
@@ -171,7 +168,7 @@ class GaussJordanMatrix2EQsolver
 end
 
 
-class Coefficient
+class Term
 	#a coefficient is a unit * quantity like in the SI, 4m (4 meters) these are the parts a equation consists of
 	#here it is a unit * variable (4x) or (-6t)
 	def initialize(str_coefficient)
