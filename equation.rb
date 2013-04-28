@@ -39,24 +39,27 @@ class Equation
 	#                          terms (coefficient, operator, variable) (4 * a)
 	#                          constants (-56)
 	#                          statement (=)
-	#                          
-	def initialize (name)
+	#
+	attr_accessor :name, :flt_constant_l, :flt_constant_r
+	attr_reader :arr_terms_l, :arr_terms_r, :bool_cleanupdone                    
+	def initialize (strName)
 		@arr_terms_l = []
 		@arr_terms_r = []
-		@flt_constant_l = 0	
+		@flt_constant_l = 0
 		@flt_constant_r = 0	
-		@strName = name								
+		@name = strName								
 		@cntVariable = 0
 		@arrVariable = []
+		@bool_cleanupdone = false
 	end
 
-	def get_terms_l
-		@arr_terms_l	
-	end
+#	def get_terms_l
+#		@arr_terms_l	
+#	end
 
-	def get_terms_r
-		@arr_terms_r	
-	end
+#	def get_terms_r
+#		@arr_terms_r	
+#	end
 
 	def get_cons_l
 		@flt_constant_l
@@ -92,7 +95,7 @@ class Equation
 		add_term(@arr_terms_r, arrInput_r)
 	end
 
-	def add_term(left_or_right_eqn, arrInput)
+	def add_term(left_or_right_terms, arrInput)
 		#todo: check for arr_coefficient = aray of 2, with first [0] a unit and second [1] a string (type Coefficient)
 		#todo: check that the coefficient to be added is not already added (no adding 5a, and then -9a)
 		#      if so, then on the left side, add
@@ -102,7 +105,7 @@ class Equation
 		if not @arrVariable.include?(arrInput[1])
 			@arrVariable << arrInput[1] 
 			#set coeficient in @arr_terms_l[i]
-			left_or_right_eqn << arrInput
+			left_or_right_terms << arrInput
 			#up the counter
 			@cntVariable += 1
 		else
@@ -111,20 +114,30 @@ class Equation
 	#end method add_term	
 	end
 
+	def get_coefficient(strCoeff)
+		first_coefficient_found = false
+		#iterate thru terms todo and return at first (and should be only) instance
+		@arr_terms_l.each { |term| return term[0] if term[1] == strCoeff}
+	end
+
 	def how_many_vars?
 		return @cntVariable + 1
 	end
 
 	def show_summary
-		puts "name              : #{@strName}"
+		puts "name              : #{@name}"
 		puts "#{@cntVariable} variable(s)     : #{@arrVariable}"
 		puts "expression left   : #{@arr_terms_l} + #{@flt_constant_l}"
 		puts "expression right  : #{@arr_terms_r} + #{@flt_constant_r}"
 		self.display_equation_as_string
 	end
 
+	def var_exists?(variable)
+		@arrVariable.include?(variable)
+	end
+
 	def display_equation_as_string
-		strHelper_1 = "#{@strName}         ---> "
+		strHelper_1 = "#{@name}         ---> "
 		strHelper_2 = ""
 
 		#iterate all coefficients on left side
@@ -144,25 +157,108 @@ class Equation
 		end
 		puts "#{strHelper_1 << strHelper_2}"
 	end
+
+	def exp_cleanup
+		#todo: make method to clean up terms and constants in equation to get all to the left expression
+		@bool_cleanupdone = true
+	end
 end
 
 class GaussJordanMatrix2EQsolver
+#todo: find out private classes etc.
+#	private_class_method :add_missing_terms
+
 	#this matrix will get 2 equations and eliminate 1 variable with the Gauss Jordan eliminating method.
 	#input : equation1, equation2, variable.
 	#prereq: "equation1" and "equation2" will have to have "variable" in their equation coefficients
-	def initialize
+	def initialize()
 		@arrGJmatrix = []
+		@arr_allVariables = []
 		#eqnHelper is a helper equation needed for the result of both equations
-		@eqnHelper = Equation.new
-
-	end
-
-	def add(equation)
-		#todo: check if equation is of the class Equation
-		@arrGJmatrix << equation
+		@eqnHelper = Equation.new("result")
 	end
 
 	def solve(equation1, equation2, variable)
+
+		#todo: check if equation1 and equation2 are of type Equation
+
+		@arr_allVariables = []
+		arr_multiplier = []
+		c1, c2 = 0, 0
+		flt_1, flt_2 = 0, 0
+		eqnSolution = Equation.new("solution")
+#		eqn_EQ1 = Equation.new('EQ1')
+#		eqn_EQ2 = Equation.new('EQ2')
+		
+		#check both equation 1 and equation 2 to see if the variable exisit in the equation
+		#only proceed if both equations have the variable
+		#if not, then give message that it could not be solved
+
+		if equation1.var_exists?(variable) and equation2.var_exists?(variable)
+			
+			#getting all the variables for EQ1 and EQ2 and adding to @arr_allVariables = [] if new unique variable
+			equation1.getVariables.each { |varName| @arr_allVariables << varName if not @arr_allVariables.include?(varName)}
+			equation2.getVariables.each { |varName| @arr_allVariables << varName if not @arr_allVariables.include?(varName)}
+		#	p arr_allVariables
+
+			#todo: add cleanup logic to method in Equation Class
+			#cleanup must be don to ensure all terms are only in left expression
+			#right expression should be 'zero'
+			equation1.exp_cleanup
+			equation2.exp_cleanup
+
+			#get coefficient1 and coefficient 2 of variable in EQ1 and EQ2
+
+			#todo:
+			#      I should make a deep clone method in Equation class.
+			#      the quick workaround (but not fastest) is the marshalling method
+			eqn_EQ1 = Marshal.load( Marshal.dump(equation1) )
+			eqn_EQ2 = Marshal.load( Marshal.dump(equation2) )
+			#change names of copies for debugging sake
+			eqn_EQ1.name, eqn_EQ2.name = "deep_copy_#{equation1.name}", "deep_copy_#{equation1.name}"
+		
+			#add missing terms to both equations
+			#if a missing term is added, the coefficient will be 0
+			self.add_missing_terms(eqn_EQ1)
+			self.add_missing_terms(eqn_EQ2)
+
+			#iterate all available variables
+			#fill c1 and c2 so we know the multiplication factors
+			c1 = eqn_EQ1.get_coefficient(variable)
+			c2 = eqn_EQ2.get_coefficient(variable)
+
+			#multiply in EQ2 with coefficient1 all coefficients of all variables
+			#multiply in EQ1 with coefficient2 all coefficients of all variables
+			#subtract all variables in EQ1 from all variables in EQ2
+			@arr_allVariables.each do |var_in_term|
+				coeff_result =   (c2 * eqn_EQ1.get_coefficient(var_in_term)) \
+							   - (c1 * eqn_EQ2.get_coefficient(var_in_term))
+				eqnSolution.add_term_l([coeff_result, "#{var_in_term}"])
+			end
+			#now we have to do this for the constant(s) on the left side
+			eqnSolution.flt_constant_l =   (c2 * eqn_EQ1.flt_constant_l) \
+										 - (c1 * eqn_EQ2.flt_constant_l)
+			#now we only should return the equation
+			return eqnSolution
+
+		else
+			puts "#{variable} does not exist in #{equation1.name} or (both) #{equation2.name}"
+			return
+		end
+	#end of method solve
+	end
+
+	def add_missing_terms(eqn_equation)
+		#check that cleanup has been done and all variables are in left expression
+		if eqn_equation.bool_cleanupdone == false
+			puts "cleanup not done on #{eqn_equation.name}"
+			return
+		end
+		#quick result if number of terms in the equation equal number of total variables
+		return if eqn_equation.arr_terms_l.count == @arr_allVariables.count
+		#iterate variables and if not existing in variables in equation then add it
+		@arr_allVariables.each { |value| eqn_equation.add_term_l([0, value]) if not eqn_equation.getVariables.include?(value)}
+	#end of method add_missing_terms
 	end
 
 end

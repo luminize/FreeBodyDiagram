@@ -214,11 +214,13 @@ class Free_body
 		end
 		
 		#give output summary of equations in array
-		@arrEquantion.each do |value| 
-			puts "#{value.show_summary}"
+	#	@arrEquantion.each do |value| 
+	#		puts "#{value.show_summary}"
 			#getting the variables for each equation and adding to @arrVariables = [] if new unique variable
-			value.getVariables.each { |name| @arrVariables << name if not @arrVariables.include?(name)}
-		end
+	#		value.getVariables.each { |name| @arrVariables << name if not @arrVariables.include?(name)}
+	#	end
+
+		determine_unique_FBD_variables
 
 		puts "#{@name} has #{@arrVariables.count} variables : #{@arrVariables}"
 		puts "there are #{@arrEquantion.count} equations and theoretically should be solvable"
@@ -226,16 +228,14 @@ class Free_body
 	#end of method "destill_equations"
 	end
 
-	def unique_FBD_variables
-		arrHelper = []
+	def determine_unique_FBD_variables
 		#iterate equation array
 		#get all variables
-		#add those dumbly to arrHelper
-		#get unique variables and add them to @arrVariables
+		#check if the variable already exists
+		#in not then add them to @arrVariables
 		@arrEquantion.each do |value| 
 			#getting the variables for each equation and adding to @arrVariables = [] if new unique variable
 			value.getVariables.each { |name| @arrVariables << name if not @arrVariables.include?(name)}
 		end
-
 	end
 end

@@ -110,11 +110,15 @@ Points.add(PD = Point.new('P4', [4,8,6]))
 FBDModule1.points?.show!
 
 eq1 = Equation.new('eq1')
+eq2 = Equation.new('eq2')
 
-eq1.get_terms_l.each { |part| puts "factor = #{part[0]} x #{part[1]}"} #output each part of the equation in console
+eq1.arr_terms_l.each { |part| puts "factor = #{part[0]} x #{part[1]}"} #output each part of the equation in console
 
 eq1.add_term_l([4,'Fa_x'])
 eq1.add_term_l([-3, 'Fby'])
+
+eq2.add_term_l([-6,'Fa_x'])
+eq2.add_term_l([-8, 'Fbz'])
 
 #eq1.getEQ_leftside.each { |part| puts "factor = #{part[0]} x #{part[1]}"}
 
@@ -127,8 +131,23 @@ Points.find('P5')
 C1.setvector([1,0,0,0,0,0])
 FBDModule1.destill_equations
 
+#method to check if variable exists in the equation
+#puts eq1.var_exists?("Fa_x")
+#puts eq1.var_exists?("Fa_y")
+
+#development of solver
+Matrixsolver_2EQ = GaussJordanMatrix2EQsolver.new()
+
+puts Matrixsolver_2EQ.solve(eq1, eq2, 'Fa_x') #should yield an equation
+puts "#{eq1.arr_terms_l} #{eq1.flt_constant_l}"
+puts "#{eq2.arr_terms_l} #{eq2.flt_constant_l}"
+puts "#{Matrixsolver_2EQ.solve(eq1, eq2, 'Fa_x').arr_terms_l} #{Matrixsolver_2EQ.solve(eq1, eq2, 'Fa_x').flt_constant_l}" #should yield an equation
 
 
+#below 3 test work
+#puts Matrixsolver_2EQ.solve(eq1, eq2, 'Fa_y') #message not able to solve (Fa_y not in both)
+#puts Matrixsolver_2EQ.solve(eq1, eq2, 'Fby') #message not able to solve (Fa_y not in both)
+#puts Matrixsolver_2EQ.solve(eq1, eq2, 'Fbz') #message not able to solve (Fa_y not in both)
 
 
 
