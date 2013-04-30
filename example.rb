@@ -136,19 +136,37 @@ FBDModule1.destill_equations
 #puts eq1.var_exists?("Fa_y")
 
 #development of solver
-Matrixsolver_2EQ = GaussJordanMatrix2EQsolver.new()
+Equation_solver = Variable_eliminator.new()
 
-puts Matrixsolver_2EQ.solve(eq1, eq2, 'Fa_x') #should yield an equation
+puts Equation_solver.solve(eq1, eq2, 'Fa_x') #should yield an equation
 puts "#{eq1.arr_terms_l} #{eq1.flt_constant_l}"
 puts "#{eq2.arr_terms_l} #{eq2.flt_constant_l}"
-puts "#{Matrixsolver_2EQ.solve(eq1, eq2, 'Fa_x').arr_terms_l} #{Matrixsolver_2EQ.solve(eq1, eq2, 'Fa_x').flt_constant_l}" #should yield an equation
+puts "#{Equation_solver.solve(eq1, eq2, 'Fa_x').arr_terms_l} #{Equation_solver.solve(eq1, eq2, 'Fa_x').flt_constant_l}" #should yield an equation
 
+#make small equation matrix of 2 for testing
+eq3, eq4 = Equation.new('eq3'), Equation.new('eq4')
+eq3.add_term_l([4,'a'])
+eq3.add_term_l([2,'b'])
+eq4.add_term_l([6,'a'])
+eq4.add_term_l([-1,'b'])
+eq3.flt_constant_l = 7
+eq4.flt_constant_l = -2
+
+puts "test for equation matrix of 2 with array of 2 variables should return resulting single equation"
+puts Gauss_Jordan_matrix_solver.new([eq3, eq4], ['a', 'b']).solve
+
+eq3.add_term_l([0,'c'])
+puts Gauss_Jordan_matrix_solver.new([eq3, eq4], ['a', 'b']).solve
 
 #below 3 test work
-#puts Matrixsolver_2EQ.solve(eq1, eq2, 'Fa_y') #message not able to solve (Fa_y not in both)
-#puts Matrixsolver_2EQ.solve(eq1, eq2, 'Fby') #message not able to solve (Fa_y not in both)
-#puts Matrixsolver_2EQ.solve(eq1, eq2, 'Fbz') #message not able to solve (Fa_y not in both)
+#puts Equation_solver.solve(eq1, eq2, 'Fa_y') #message not able to solve (Fa_y not in both)
+#puts Equation_solver.solve(eq1, eq2, 'Fby') #message not able to solve (Fa_y not in both)
+#puts Equation_solver.solve(eq1, eq2, 'Fbz') #message not able to solve (Fa_y not in both)
 
-
+#todo: rename GaussJordanMatrix2EQsolver to equation_var_eliminator or something
+#      make matrix of >2 be solved with equation_var_eliminator
+#      add to equation_var_eliminator the output (bool?) to give the results if only 1 variables remains
+#      the one remaining variable should be named and given it's value.
+#      after this the loop can be reversed to fill all other variables
 
 

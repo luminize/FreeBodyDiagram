@@ -164,7 +164,7 @@ class Equation
 	end
 end
 
-class GaussJordanMatrix2EQsolver
+class Variable_eliminator
 #todo: find out private classes etc.
 #	private_class_method :add_missing_terms
 
@@ -262,6 +262,114 @@ class GaussJordanMatrix2EQsolver
 	end
 
 end
+
+
+class Gauss_Jordan_matrix_solver
+	def initialize(equations_matrix_input, arr_of_variables_input)
+		#todo: check for types of objects
+		
+		#make a deep clone of the array of matrices and variables
+		@arr_equation_matrix = Marshal.load( Marshal.dump(equations_matrix_input) )
+		@arr_variables = Marshal.load( Marshal.dump(arr_of_variables_input) )
+		@arr_indices = []
+		@arr_results = []
+		@eqn_result_eq = Equation.new("result equation of 2 EQ in GJ matrix solver")
+		puts "entering initialize in Gauss_Jordan_matrix_solver"
+	end
+
+	def solve
+		arr_variable_zero = []
+		arr_term_non_zero_variables = []
+		arr_variable_name = []
+		arr_helper = []
+		arr_variable_coeff = []
+		#if there are only 2 equations and 2 variables left then only Variable_eliminator has to be
+		#     called 1 time. Result from that must be used to solve the equation in the matrix above.
+		# 	  the returned value is an array of [result_n, variable_n]. This is the turning point for
+		# 	  solving the other equations upwards
+		# 	  arr_equation_matrix[0] can now be solved with the info from the arr_results matrix.
+		#     the resulting variable matrix [result_n-1, variable_n-1] will be added as first index.
+		puts "number of equations in equation matrix = #{@arr_equation_matrix.count}"
+		case @arr_equation_matrix.count
+			when 0
+				puts "GJMS error 0 equations in equation matrix"
+				return
+			when 1
+				puts "GJMS error only 1 equation in equation matrix"
+				return
+			when 2
+				puts "GJMS entering \'case 2\' in Gauss_Jordan_matrix_solver"
+				#code for running eliminator and returning result.
+				#this result needs to be used in current matrix to solve arr_equation_matirx[0]
+				#and add the resulting [solution, variable] to the arr_results matrix to be used
+				#for solving the equation matrix above.
+				@eqn_result_eq = Variable_eliminator.new.solve(@arr_equation_matrix[0], @arr_equation_matrix[1], @arr_variables[0])
+				@eqn_result_eq.name = "result of #{@arr_equation_matrix[0].name} and #{@arr_equation_matrix[1].name}"
+				p @eqn_result_eq
+				
+				#check that there is only 1 variable that is not 'zero'
+				puts "GJMS left terms #{@eqn_result_eq.arr_terms_l}"
+				
+				#deep copy
+				arr_helper = Marshal.load( Marshal.dump(@eqn_result_eq.arr_terms_l) )
+				
+				puts "GJMS arr_helper = #{arr_helper}"
+
+				arr_helper.each_with_index do |term, index|
+					if term[0] == 0
+						arr_variable_zero << term 
+					else
+						arr_term_non_zero_variables << term
+						arr_variable_name << term[1]
+						arr_variable_coeff << term[0]
+					end
+				end
+
+		# for debugging
+		#		puts "GJMS arr_variable_zero = #{arr_variable_zero}"
+		#		puts "GJMS arr_term_non_zero_variables = #{arr_term_non_zero_variables}"
+		#		puts "GJMS #{arr_variable_zero.count} zero variables in left side terms are #{arr_variable_zero}"
+		#		puts "GJMS @eqn_result_eq.flt_constant_l = #{@eqn_result_eq.flt_constant_l}"
+				
+				#check that @arr_variables[1] is the last remaining variable, consistent with variable that is not 'zero'
+				if (arr_term_non_zero_variables.count == 1) 
+				   		puts "GJMS 1 variable remaining with coefficient other than zero, and variable equals expected variable"
+				   		#the only remaining variable thus is (-1 * flt_constant_l) / arr_variable_coeff
+				   		puts "arr_term_non_zero_variables[0] = #{arr_term_non_zero_variables[0]}"
+				   		@arr_results << [((-1 * @eqn_result_eq.flt_constant_l.to_f) / arr_variable_coeff[0].to_f), arr_variable_name[0]]
+				   		puts "@arr_results[0] = #{@arr_results[0]}"
+					else
+				   		puts "GJMS error with remaining (zero) variables. returning without succes. check your code"
+				end
+
+				return @eqn_result_eq
+			else #equations that are bigger than 2
+				
+				#TODO: do iteration of matrix > 2
+				#TODO: invoking a new solver for the resulting matrix.
+				#TODO: appending resulting values (array) to @arr_results
+				#TODO: see for solving the known variables above (line 335 approx)
+
+
+				#RANTING BELOW
+
+
+		#now we need to decide how best to start. Let's take the first variable from the variables array 
+		#     and check in which indices of arr_equation_matrix it exists
+		#thus we fill an array with the indices of the equations which needs to be solved
+		#after eliminating the first equation value of index [0] of arr_indices into the remaining equations 
+		#     of arr_equation_matrix we copy the resulting equations and remaining (index of arr_matrices
+		#     who are not in the values of arr_indices) equations in a new matrix
+
+
+
+
+		end
+
+
+	end
+end
+
 
 
 class Term
