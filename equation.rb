@@ -53,14 +53,6 @@ class Equation
 		@bool_cleanupdone = false
 	end
 
-#	def get_terms_l
-#		@arr_terms_l	
-#	end
-
-#	def get_terms_r
-#		@arr_terms_r	
-#	end
-
 	def get_cons_l
 		@flt_constant_l
 	end
@@ -81,9 +73,8 @@ class Equation
 		#reset equation first before re-running destillation of equations
 		@arr_terms_l = []
 		@arr_terms_r = []
-		@flt_constant_l = 0	
-		@flt_constant_r = 0								
-		@cntVariable = 0
+		@flt_constant_l = 0.to_f	
+		@flt_constant_r = 0.to_f								
 		@arrVariable = []
 	end
 
@@ -97,33 +88,30 @@ class Equation
 
 	def add_term(left_or_right_terms, arrInput)
 		@bool_cleanupdone = false
-
 		#todo: check for arr_coefficient = aray of 2, with first [0] a unit and second [1] a string (type Coefficient)
 		#todo: check that the coefficient to be added is not already added (no adding 5a, and then -9a)
 		#      if so, then on the left side, add
-		
 		#check if there already is a variable with the same name
 		#do nothing if so
 		if not @arrVariable.include?(arrInput[1])
 			@arrVariable << arrInput[1] 
 			#set coeficient in @arr_terms_l[i]
 			left_or_right_terms << arrInput
-			#up the counter
-			@cntVariable += 1
 		else
 			puts "variable #{arrInput[1]} already exists. Nothing will be done. Check your code"
 		end
 	#end method add_term	
 	end
 
-	def get_coefficient(strCoeff)
+	def get_coefficient(strVariable)
+		self.cleanup_to_left
 		first_coefficient_found = false
-		#iterate thru terms todo and return at first (and should be only) instance
-		@arr_terms_l.each { |term| return term[0] if term[1] == strCoeff}
+		#iterate thru terms and return at first (and should be only) instance
+		@arr_terms_l.each { |term| return term[0] if term[1] == strVariable}
 	end
 
 	def how_many_vars?
-		return @cntVariable + 1
+		return @arrVariable.count
 	end
 
 	def show_summary
@@ -135,6 +123,7 @@ class Equation
 	end
 
 	def var_exists?(variable)
+		self.cleanup_to_left
 		@arrVariable.include?(variable)
 	end
 
@@ -154,36 +143,52 @@ class Equation
 			strHelper_2 << " + #{@flt_constant_r}"
 			strHelper_2 = "0" if strHelper_2 == "0 + 0"
 		else
-			@arr_terms_r.each { |coeff| strHelper << "(#{coeff[0]} x #{coeff[1]}) + "}
-			strHelper << "#{@flt_constant_r}"
+			@arr_terms_r.each { |coeff| strHelper_1 << "(#{coeff[0]} x #{coeff[1]}) + "}
+			strHelper_2 << "#{@flt_constant_r}"
 		end
 		puts "#{strHelper_1 << strHelper_2}"
 	end
 
-	def exp_cleanup
-		#todo: make method to clean up terms and constants in equation to get all to the left expression
+	def cleanup_to_left
+		arr_to_be_removed_indexes = []
+		result = nil
+
+		#clean up terms and constants in equation to get all to the left expression
+		#since adding variables checks if the variable already exists we won't check if variables are double
+		@arr_terms_r.each do |term|
+			@arr_terms_l << [-1*term[0], term[1]] 
+		end
+		@flt_constant_l -= @flt_constant_r 
+		
+		#remove all terms which have a zero as coefficient in it
+		@arr_terms_l.each_with_index do |term, index| 
+			if term[0] == 0
+				arr_to_be_removed_indexes.insert(0, index) 		#fill array backwards with to be removed term indices
+				@arrVariable.delete(term[1])					#remove variable from known variables
+			end
+		end
+		arr_to_be_removed_indexes.each_with_index { |v, i| @arr_terms_l.slice(arr_to_be_removed_indexes[i]) if i != nil }
+		#set right expression as []
+		@arr_terms_r = []
+		@flt_constant_r = 0.to_f
 		@bool_cleanupdone = true
 	end
 
-	def is_zero_equation?
-		#iterate after expression cleanup (moving all terms to the left) the array of left terms, and count 
-		#the number of terms in which the coefficient equals 0
-
-		result = false
-		int_zero = 0
-		self.exp_cleanup
-		@arr_terms_l.each do |term|
-			int_zero += 1 if term[0] == 0
+	def has_terms?
+		#all terms moved to the left expression
+		self.cleanup_to_left
+		if @arr_terms_l.count == 0
+			return false
+		else
+			return true
 		end
-		result = true if int_zero == @arr_terms_l.count
-		return result
 	end
 
-	def has_only_one_term?
+	def has_only_one_left_term?
 		#after expression cleanup all terms exept one are zero
 		#meaning the value can be calculated
 		int_non_zero_coeff = 0
-		self.exp_cleanup
+		self.cleanup_to_left
 		@arr_terms_l.each { |term| int_non_zero_coeff += 1 if term[0] != 0}
 		if int_non_zero_coeff == 1
 			return true
@@ -233,8 +238,8 @@ class Variable_eliminator
 			#todo: add cleanup logic to method in Equation Class
 			#cleanup must be don to ensure all terms are only in left expression
 			#right expression should be 'zero'
-			equation1.exp_cleanup
-			equation2.exp_cleanup
+			equation1.cleanup_to_left
+			equation2.cleanup_to_left
 
 			#get coefficient1 and coefficient 2 of variable in EQ1 and EQ2
 
@@ -335,6 +340,11 @@ class Gauss_Jordan_matrix_solver
 				#this result needs to be used in current matrix to solve arr_equation_matirx[0]
 				#and add the resulting [solution, variable] to the arr_results matrix to be used
 				#for solving the equation matrix above.
+
+#todo: check for same variable in both equations to be there
+#todo: check that both are not zero equations
+#todo: check that at least 1 of both has 2 non-zero terms with different variables
+
 				@eqn_result_eq = Variable_eliminator.new.solve(@arr_equation_matrix[0], @arr_equation_matrix[1], @arr_variables[0])
 				@eqn_result_eq.name = "result of #{@arr_equation_matrix[0].name} and #{@arr_equation_matrix[1].name}"
 				p @eqn_result_eq
@@ -345,7 +355,11 @@ class Gauss_Jordan_matrix_solver
 				#deep copy
 				arr_helper = Marshal.load( Marshal.dump(@eqn_result_eq.arr_terms_l) )
 				
-				puts "GJMS arr_helper = #{arr_helper}"
+		#		puts "GJMS arr_helper = #{arr_helper}"
+
+				@eqn_result_e
+
+
 
 				arr_helper.each_with_index do |term, index|
 					if term[0] == 0

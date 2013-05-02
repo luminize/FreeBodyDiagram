@@ -172,9 +172,19 @@ puts Gauss_Jordan_matrix_solver.new([eq3, eq4], ['a', 'b']).solve
 #test zero equation method
 eq5 = Equation.new('eq5')
 eq5.add_term_l([0, 'p'])
-eq5.add_term_l([0, 'q'])
+eq5.add_term_r([0, 'q'])
 #puts eq3.is_zero_equation?
 #puts eq5.is_zero_equation?
 eq5.add_term_l([4, 'r'])
 #puts eq5.has_only_one_term?
 #puts eq4.has_only_one_term?
+eq5.add_term_r([7, 't'])
+#puts eq5.var_exists?('r')
+#puts eq5.var_exists?('s')
+eq5.flt_constant_l = 6
+eq5.flt_constant_r = 8
+puts eq5.show_summary
+
+eq5.cleanup_to_left
+puts eq5.show_summary
+
