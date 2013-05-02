@@ -40,8 +40,8 @@ class Equation
 	#                          constants (-56)
 	#                          statement (=)
 	#
-	attr_accessor :name, :flt_constant_l, :flt_constant_r
-	attr_reader :arr_terms_l, :arr_terms_r, :bool_cleanupdone                    
+	attr_accessor :name
+	attr_reader :arr_terms_l, :arr_terms_r, :bool_cleanupdone, :flt_constant_l, :flt_constant_r                
 	def initialize (strName)
 		@arr_terms_l = []			#array as => [ [4, 'a'], [8, 'b']
 		@arr_terms_r = []
@@ -53,16 +53,12 @@ class Equation
 		@bool_cleanupdone = false
 	end
 
-	def get_cons_l
-		@flt_constant_l
+	def set_cons_l(floatingnumber)
+		@flt_constant_l = floatingnumber.to_f
 	end
 
-	def get_cons_r
-		@flt_constant_r
-	end
-
-	def setC(floatingnumber)
-		@flt_constant = floatingnumber
+	def set_cons_r(floatingnumber)
+		@flt_constant_r = floatingnumber.to_f
 	end
 
 	def getVariables
@@ -96,7 +92,7 @@ class Equation
 		if not @arrVariable.include?(arrInput[1])
 			@arrVariable << arrInput[1] 
 			#set coeficient in @arr_terms_l[i]
-			left_or_right_terms << arrInput
+			left_or_right_terms << [arrInput[0].to_f, arrInput[1]]
 		else
 			puts "variable #{arrInput[1]} already exists. Nothing will be done. Check your code"
 		end
@@ -104,10 +100,12 @@ class Equation
 	end
 
 	def get_coefficient(strVariable)
+		result = nil
 		self.cleanup_to_left
 		first_coefficient_found = false
 		#iterate thru terms and return at first (and should be only) instance
-		@arr_terms_l.each { |term| return term[0] if term[1] == strVariable}
+		@arr_terms_l.each { |term| result = term[0].to_f if term[1] == strVariable}
+		return result
 	end
 
 	def how_many_vars?
@@ -116,7 +114,7 @@ class Equation
 
 	def show_summary
 		puts "name              : #{@name}"
-		puts "#{@cntVariable} variable(s)     : #{@arrVariable}"
+		puts "#{@arrVariable.count} variable(s)     : #{@arrVariable}"
 		puts "expression left   : #{@arr_terms_l} + #{@flt_constant_l}"
 		puts "expression right  : #{@arr_terms_r} + #{@flt_constant_r}"
 		self.display_equation_as_string
@@ -128,7 +126,7 @@ class Equation
 	end
 
 	def display_equation_as_string
-		strHelper_1 = "#{@name}         ---> "
+		strHelper_1 = "#{@name}           ---> "
 		strHelper_2 = ""
 
 		#iterate all coefficients on left side
@@ -162,15 +160,16 @@ class Equation
 		
 		#remove all terms which have a zero as coefficient in it
 		@arr_terms_l.each_with_index do |term, index| 
-			if term[0] == 0
+			if term[0] == 0.0
 				arr_to_be_removed_indexes.insert(0, index) 		#fill array backwards with to be removed term indices
 				@arrVariable.delete(term[1])					#remove variable from known variables
 			end
 		end
-		arr_to_be_removed_indexes.each_with_index { |v, i| @arr_terms_l.slice(arr_to_be_removed_indexes[i]) if i != nil }
+		arr_to_be_removed_indexes.each_with_index { |v, i| @arr_terms_l.delete_at(v) if i != nil }
+		
 		#set right expression as []
 		@arr_terms_r = []
-		@flt_constant_r = 0.to_f
+		@flt_constant_r = 0.0
 		@bool_cleanupdone = true
 	end
 
@@ -218,8 +217,8 @@ class Variable_eliminator
 
 		@arr_allVariables = []
 		arr_multiplier = []
-		c1, c2 = 0, 0
-		flt_1, flt_2 = 0, 0
+		c1, c2 = 0.0, 0.0
+		flt_1, flt_2 = 0.0, 0.0
 		eqnSolution = Equation.new("solution")
 #		eqn_EQ1 = Equation.new('EQ1')
 #		eqn_EQ2 = Equation.new('EQ2')
@@ -265,13 +264,14 @@ class Variable_eliminator
 			#multiply in EQ1 with coefficient2 all coefficients of all variables
 			#subtract all variables in EQ1 from all variables in EQ2
 			@arr_allVariables.each do |var_in_term|
-				coeff_result =   (c2 * eqn_EQ1.get_coefficient(var_in_term)) \
-							   - (c1 * eqn_EQ2.get_coefficient(var_in_term))
+				coeff_result =   (c2 * eqn_EQ1.get_coefficient(var_in_term).to_f) \
+							   - (c1 * eqn_EQ2.get_coefficient(var_in_term).to_f)
 				eqnSolution.add_term_l([coeff_result, "#{var_in_term}"])
 			end
 			#now we have to do this for the constant(s) on the left side
-			eqnSolution.flt_constant_l =   (c2 * eqn_EQ1.flt_constant_l) \
-										 - (c1 * eqn_EQ2.flt_constant_l)
+			eqnSolution.set_cons_l (   (c2 * eqn_EQ1.flt_constant_l) \
+									 - (c1 * eqn_EQ2.flt_constant_l) \
+									)
 			#now we only should return the equation
 			return eqnSolution
 

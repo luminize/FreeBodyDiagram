@@ -149,8 +149,8 @@ eq3.add_term_l([4,'a'])
 eq3.add_term_l([2,'b'])
 eq4.add_term_l([6,'a'])
 eq4.add_term_l([-1,'b'])
-eq3.flt_constant_l = 7
-eq4.flt_constant_l = -2
+eq3.set_cons_l(7)
+eq4.set_cons_l(-2)
 
 puts "test for equation matrix of 2 with array of 2 variables should return resulting single equation"
 puts Gauss_Jordan_matrix_solver.new([eq3, eq4], ['a', 'b']).solve
@@ -181,8 +181,8 @@ eq5.add_term_l([4, 'r'])
 eq5.add_term_r([7, 't'])
 #puts eq5.var_exists?('r')
 #puts eq5.var_exists?('s')
-eq5.flt_constant_l = 6
-eq5.flt_constant_r = 8
+eq5.set_cons_l(6)
+eq5.set_cons_r(8)
 puts eq5.show_summary
 
 eq5.cleanup_to_left
