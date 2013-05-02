@@ -43,7 +43,7 @@ class Equation
 	attr_accessor :name, :flt_constant_l, :flt_constant_r
 	attr_reader :arr_terms_l, :arr_terms_r, :bool_cleanupdone                    
 	def initialize (strName)
-		@arr_terms_l = []
+		@arr_terms_l = []			#array as => [ [4, 'a'], [8, 'b']
 		@arr_terms_r = []
 		@flt_constant_l = 0
 		@flt_constant_r = 0	
@@ -96,6 +96,8 @@ class Equation
 	end
 
 	def add_term(left_or_right_terms, arrInput)
+		@bool_cleanupdone = false
+
 		#todo: check for arr_coefficient = aray of 2, with first [0] a unit and second [1] a string (type Coefficient)
 		#todo: check that the coefficient to be added is not already added (no adding 5a, and then -9a)
 		#      if so, then on the left side, add
@@ -161,6 +163,33 @@ class Equation
 	def exp_cleanup
 		#todo: make method to clean up terms and constants in equation to get all to the left expression
 		@bool_cleanupdone = true
+	end
+
+	def is_zero_equation?
+		#iterate after expression cleanup (moving all terms to the left) the array of left terms, and count 
+		#the number of terms in which the coefficient equals 0
+
+		result = false
+		int_zero = 0
+		self.exp_cleanup
+		@arr_terms_l.each do |term|
+			int_zero += 1 if term[0] == 0
+		end
+		result = true if int_zero == @arr_terms_l.count
+		return result
+	end
+
+	def has_only_one_term?
+		#after expression cleanup all terms exept one are zero
+		#meaning the value can be calculated
+		int_non_zero_coeff = 0
+		self.exp_cleanup
+		@arr_terms_l.each { |term| int_non_zero_coeff += 1 if term[0] != 0}
+		if int_non_zero_coeff == 1
+			return true
+		else
+			return false
+		end
 	end
 end
 
@@ -274,7 +303,10 @@ class Gauss_Jordan_matrix_solver
 		@arr_indices = []
 		@arr_results = []
 		@eqn_result_eq = Equation.new("result equation of 2 EQ in GJ matrix solver")
-		puts "entering initialize in Gauss_Jordan_matrix_solver"
+	#	puts "entering initialize in Gauss_Jordan_matrix_solver"
+
+		#check if there are equations which have all zero's in equation
+
 	end
 
 	def solve

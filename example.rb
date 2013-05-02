@@ -169,4 +169,12 @@ puts Gauss_Jordan_matrix_solver.new([eq3, eq4], ['a', 'b']).solve
 #      the one remaining variable should be named and given it's value.
 #      after this the loop can be reversed to fill all other variables
 
-
+#test zero equation method
+eq5 = Equation.new('eq5')
+eq5.add_term_l([0, 'p'])
+eq5.add_term_l([0, 'q'])
+#puts eq3.is_zero_equation?
+#puts eq5.is_zero_equation?
+eq5.add_term_l([4, 'r'])
+#puts eq5.has_only_one_term?
+#puts eq4.has_only_one_term?
