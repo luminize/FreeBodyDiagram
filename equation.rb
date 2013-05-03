@@ -389,7 +389,7 @@ class Gauss_Jordan_matrix_solver
 				end
 
 				return @eqn_result_eq
-			else #equations that are bigger than 2
+			else #equationsmatrix that are bigger than 2
 				
 				#TODO: do iteration of matrix > 2
 				#TODO: invoking a new solver for the resulting matrix.

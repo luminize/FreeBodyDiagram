@@ -212,19 +212,21 @@ class Free_body
 			end
 		#end of iterating constraintscollection
 		end
-		
-		#give output summary of equations in array
-	#	@arrEquantion.each do |value| 
-	#		puts "#{value.show_summary}"
-			#getting the variables for each equation and adding to @arrVariables = [] if new unique variable
-	#		value.getVariables.each { |name| @arrVariables << name if not @arrVariables.include?(name)}
-	#	end
+
+		#determine validity of equations and variables w.r.t. solvability
+
+		#todo: find out why error is raised if i do self.determine_unique_FBD_variables
+		#./FreeBodyDiagram/freebodydiagram.rb:217:in `destill_equations': uninitialized constant Free_body::Self (NameError)
 
 		determine_unique_FBD_variables
-
+		number_of_zero_equations = determine_non_solvable_equations
 		puts "#{@name} has #{@arrVariables.count} variables : #{@arrVariables}"
-		puts "there are #{@arrEquantion.count} equations and theoretically should be solvable"
-	
+		if (@arrEquantion.count - number_of_zero_equations) == @arrVariables.count
+			puts "there are #{@arrEquantion.count - number_of_zero_equations} equations and theoretically should be solvable"
+		else
+			puts "there are #{@arrEquantion.count - number_of_zero_equations} equations and theoretically should NOT be solvable"
+			#todo: raise error
+		end
 	#end of method "destill_equations"
 	end
 
@@ -238,4 +240,14 @@ class Free_body
 			value.getVariables.each { |name| @arrVariables << name if not @arrVariables.include?(name)}
 		end
 	end
+
+	def determine_non_solvable_equations
+		#iterate array and count the number of equations where all coefficients are zero
+		int_zero_equations = 0
+		@arrEquantion.each do |value|
+			int_zero_equations += 1 if value.has_terms? == 0
+		end
+		return int_zero_equations
+	end
+
 end
