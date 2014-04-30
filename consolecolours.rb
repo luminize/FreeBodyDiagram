@@ -1,3 +1,5 @@
+
+
 class Consolecollours
 #	//foreground color
 #public static final String BLACK_TEXT()   { return "\033[30m";}

@@ -4,6 +4,206 @@
 		"selected_items":
 		[
 			[
+				"num",
+				"number_of_zero_equations"
+			],
+			[
+				"to",
+				"to_f"
+			],
+			[
+				"set",
+				"set_cons_l"
+			],
+			[
+				"flt_",
+				"flt_constant_r"
+			],
+			[
+				"arr_ter",
+				"arr_terms_r"
+			],
+			[
+				"sh",
+				"show"
+			],
+			[
+				"i",
+				"i"
+			],
+			[
+				"arr_",
+				"arr_terms_l"
+			],
+			[
+				"flt",
+				"flt_constant_r"
+			],
+			[
+				"each",
+				"each"
+			],
+			[
+				"exp",
+				"exp_cleanup"
+			],
+			[
+				"eq",
+				"eq5"
+			],
+			[
+				"int_",
+				"int_non_zero_coeff"
+			],
+			[
+				"is",
+				"is_zero_equation"
+			],
+			[
+				"arr_term",
+				"arr_terms_l"
+			],
+			[
+				"arr_helper",
+				"arr_helper_2"
+			],
+			[
+				"arr_vari",
+				"arr_variable_zero"
+			],
+			[
+				"arr_var",
+				"arr_variable_zero"
+			],
+			[
+				"arr_v",
+				"arr_variables"
+			],
+			[
+				"return",
+				"return"
+			],
+			[
+				"var",
+				"Variable_eliminator"
+			],
+			[
+				"eqn",
+				"eqnSolution"
+			],
+			[
+				"var_",
+				"var_in_term"
+			],
+			[
+				"add",
+				"add_term_l"
+			],
+			[
+				"get",
+				"get_coefficient"
+			],
+			[
+				"eqn_",
+				"eqn_equation"
+			],
+			[
+				"arr",
+				"arr_terms_l"
+			],
+			[
+				"equation",
+				"equation1"
+			],
+			[
+				"EQ",
+				"EQ2"
+			],
+			[
+				"eqn_EQ",
+				"eqn_EQ1"
+			],
+			[
+				"equ",
+				"equation2"
+			],
+			[
+				"n",
+				"new"
+			],
+			[
+				"equa",
+				"equation2"
+			],
+			[
+				"equat",
+				"equation1"
+			],
+			[
+				"strHelp",
+				"strHelper_1"
+			],
+			[
+				"str",
+				"strHelper_2"
+			],
+			[
+				"con",
+				"constant_l"
+			],
+			[
+				"constra",
+				"constraintscollection"
+			],
+			[
+				"constrain",
+				"constraintvector"
+			],
+			[
+				"eqn_M",
+				"eqn_My"
+			],
+			[
+				"eq_",
+				"eqn_Mx"
+			],
+			[
+				"constr",
+				"constraintvector"
+			],
+			[
+				"eqn_F",
+				"eqn_Fy"
+			],
+			[
+				"E",
+				"Equation"
+			],
+			[
+				"Constrain",
+				"Constraints"
+			],
+			[
+				"constraints",
+				"constraintscollection"
+			],
+			[
+				"cona",
+				"constraintvector"
+			],
+			[
+				"fin",
+				"find"
+			],
+			[
+				"V",
+				"V_coll"
+			],
+			[
+				"Vec",
+				"vector"
+			],
+			[
 				"dx",
 				"dXdYdZ"
 			],
@@ -16,10 +216,6 @@
 				"dXdYdZ"
 			],
 			[
-				"is",
-				"isF_vector"
-			],
-			[
 				"task",
 				"task_hash"
 			],
@@ -30,14 +226,6 @@
 			[
 				"if",
 				"ife	if … else … end"
-			],
-			[
-				"add",
-				"addresources"
-			],
-			[
-				"arr",
-				"arrResources"
 			],
 			[
 				"descr",
@@ -146,10 +334,6 @@
 			[
 				"wsmu_str",
 				"wsmu_structure_manufacturing"
-			],
-			[
-				"str",
-				"structure_manufacturing"
 			],
 			[
 				"structure_m",
@@ -328,26 +512,61 @@
 	"buffers":
 	[
 		{
-			"file": "vector.rb",
+			"file": "example.rb",
 			"settings":
 			{
-				"buffer_size": 1985,
+				"buffer_size": 6266,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "point.rb",
+			"settings":
+			{
+				"buffer_size": 1611,
 				"line_ending": "Unix",
 				"name": "#this class describes the vector class"
 			}
 		},
 		{
+			"file": "freebodydiagram.rb",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 8638,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "example.rb",
+			"file": "equation.rb",
 			"settings":
 			{
-				"buffer_size": 1373,
+				"buffer_size": 15296,
+				"line_ending": "Unix",
+				"name": "class Equation"
+			}
+		},
+		{
+			"file": "vector.rb",
+			"settings":
+			{
+				"buffer_size": 3523,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "constraint.rb",
+			"settings":
+			{
+				"buffer_size": 1741,
+				"line_ending": "Unix",
+				"name": "class Constraint"
+			}
+		},
+		{
+			"file": "consolecolours.rb",
+			"settings":
+			{
+				"buffer_size": 2237,
 				"line_ending": "Unix"
 			}
 		}
@@ -384,6 +603,10 @@
 	},
 	"file_history":
 	[
+		"/Users/basdebruijn/Projects/1205_fdmprinter/megatronics/cilinder.gcode",
+		"/Users/basdebruijn/Projects/1205_fdmprinter/megatronics/square100.gcode",
+		"/Users/basdebruijn/Programs/FreeBodyDiagram/example.rb",
+		"/Users/basdebruijn/Programs/FreeBodyDiagram/consolecollours.rb",
 		"/Users/basdebruijn/Programs/css3/3dtransform.html",
 		"/Users/basdebruijn/Planning/WSMU/bdb_report.tji",
 		"/Users/basdebruijn/Planning/WSMU/report.tji",
@@ -442,6 +665,16 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"clenup",
+			"cleanup_to_left",
+			"addCoefficient",
+			"arr_expression",
+			"equationpart",
+			"arr_expression_left",
+			"eqn_rightside",
+			"eqn_leftside",
+			"V_loads",
+			"P_coll",
 			"global_debug",
 			"actuel",
 			"foundation_manufacturing",
@@ -472,6 +705,12 @@
 		"regex": false,
 		"replace_history":
 		[
+			"add_term",
+			"arr_terms",
+			"term",
+			"arr_expression_l",
+			"arr_expression_r",
+			"arr_expression_left",
 			"WSMU",
 			"bdb\nbdb\nbdb\nbdb"
 		],
@@ -484,54 +723,28 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 5,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "vector.rb",
+					"file": "example.rb",
 					"settings":
 					{
-						"buffer_size": 1985,
+						"buffer_size": 6266,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1902,
-								1902
+								4165,
+								4165
 							]
 						],
 						"settings":
 						{
-							"auto_name": "#this class describes the vector class",
 							"syntax": "Packages/Ruby/Ruby.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 884.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"settings":
-					{
-						"buffer_size": 0,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -540,19 +753,157 @@
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "example.rb",
+					"buffer": 1,
+					"file": "point.rb",
 					"settings":
 					{
-						"buffer_size": 1373,
+						"buffer_size": 1611,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								868,
-								868
+								384,
+								384
+							]
+						],
+						"settings":
+						{
+							"auto_name": "#this class describes the vector class",
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 420.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "freebodydiagram.rb",
+					"settings":
+					{
+						"buffer_size": 8638,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								7398,
+								7398
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1513.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "equation.rb",
+					"settings":
+					{
+						"buffer_size": 15296,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								13951,
+								13951
+							]
+						],
+						"settings":
+						{
+							"auto_name": "class Equation",
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2037.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "vector.rb",
+					"settings":
+					{
+						"buffer_size": 3523,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2271,
+								2271
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "constraint.rb",
+					"settings":
+					{
+						"buffer_size": 1741,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								157,
+								157
+							]
+						],
+						"settings":
+						{
+							"auto_name": "class Constraint",
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "consolecolours.rb",
+					"settings":
+					{
+						"buffer_size": 2237,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
 							]
 						],
 						"settings":
@@ -613,6 +964,22 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"const",
+				"constraint.rb"
+			],
+			[
+				"free",
+				"freebodydiagram.rb"
+			],
+			[
+				"fb",
+				"freebodydiagram.rb"
+			],
+			[
+				"vec",
+				"vector.rb"
+			]
 		],
 		"width": 0.0
 	},
